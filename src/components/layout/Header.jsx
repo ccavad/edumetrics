@@ -1,17 +1,24 @@
 import { Container, Flex, Heading, Select, Spacer } from "@chakra-ui/react";
 import { HamburgerDrawer } from "./HamburgerDrawer";
+import { useCompanyStore } from "../../store/useCompanyStore";
+import { isEmptyObject } from "../../utils/tools/helpers";
 
 export const Header = () => {
+  const companyData = useCompanyStore((state) => state.companyData);
+
   return (
     <Container
       width="full"
       height="88px"
       maxWidth="1175px"
       padding={{ base: "1rem", sm: "1.5rem", md: "2rem" }}
+      as="header"
     >
       <Flex>
         <HamburgerDrawer />
-        <Heading ml={10}>Logo</Heading>
+        <Heading ml={10} fontSize="3xl" fontWeight="400">
+          Logo
+        </Heading>
         <Spacer />
         <Select
           w="84px"
@@ -19,9 +26,12 @@ export const Header = () => {
           borderColor="#262626"
           onChange={null}
         >
-          <option value="aze">AZE</option>
-          <option value="eng">ENG</option>
-          <option value="ru">RU</option>
+          {!isEmptyObject(companyData) &&
+            companyData.languageList.map((lang) => (
+              <option key={lang} value={lang}>
+                {lang}
+              </option>
+            ))}
         </Select>
       </Flex>
     </Container>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -10,8 +11,13 @@ import {
 } from "@chakra-ui/react";
 
 import heroImage from "../../assets/images/herosection-girl.png";
+import greenCircle from "../../assets/images/green_circle.png";
+import { EDU_URL } from "../../services/api/constants";
+import { useCompanyStore } from "../../store/useCompanyStore";
 
 export const HeroSection = () => {
+  const companyData = useCompanyStore((state) => state.companyData);
+
   return (
     <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10}>
       <Flex direction="column" justify="space-evenly" alignItems="center">
@@ -20,14 +26,12 @@ export const HeroSection = () => {
             ÖVLADINIZIN GƏLƏCƏYİ ÜÇÜN ÇALIŞIRIQ!
           </Highlight>
         </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-          egestas vitae
-        </Text>
+        <Text>{companyData.headerText}</Text>
         <Button>İNDİ ƏLAQƏ SAXLA</Button>
       </Flex>
-      <Box>
-        <Image src={heroImage} alt="girl book" />
+      <Box position="relative">
+        {/* <Image src={greenCircle} alt="circle" /> */}
+        <Image src={EDU_URL + companyData.headerImage} alt="girl book" />
       </Box>
     </SimpleGrid>
   );
