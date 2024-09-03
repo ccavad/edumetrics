@@ -11,12 +11,17 @@ import {
   Select,
   Text,
   VStack,
+  Wrap,
+  WrapItem,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-import greenCircle from "../../assets/images/green_circle.png";
+import { RegisterTitle } from "./RegisterTitle";
+import { useState } from "react";
+import { RegisterForm } from "./RegisterForm";
 
 const Register = () => {
+  const [registerType, setRegisterType] = useState(null);
   const {
     register,
     handleSubmit,
@@ -28,24 +33,46 @@ const Register = () => {
 
   return (
     <Box position="relative">
-      <Image
-        src={greenCircle}
-        alt="circle"
-        position="absolute"
-        right="80px"
-        top="20px"
-      />
-
-      <VStack alignItems="flex-start" width="40%">
-        <Heading color="#393939" fontSize="60px">
-          Qeydiyyat səhifəsi
-        </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-          egestas vitae
-        </Text>
+      <RegisterTitle />
+      <VStack alignItems="flex-start">
+        <Heading>Hesab tipi seçin</Heading>
+        {!registerType && (
+          <Wrap justifyContent="center" align="center">
+            <WrapItem>
+              <Button
+                border="2px solid red"
+                width="377px"
+                height="270px"
+                onClick={() => setRegisterType("student")}
+              >
+                Şagird
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                border="2px solid red"
+                width="377px"
+                height="270px"
+                onClick={() => setRegisterType("parent")}
+              >
+                Valideyn
+              </Button>
+            </WrapItem>
+            <WrapItem>
+              <Button
+                border="2px solid red"
+                width="377px"
+                height="270px"
+                onClick={() => setRegisterType("teacher")}
+              >
+                Müəllim
+              </Button>
+            </WrapItem>
+          </Wrap>
+        )}
       </VStack>
-      <Flex justifyContent="center">
+      {registerType && <RegisterForm registerType={registerType} />}
+      {/* <Flex justifyContent="center">
         <form onSubmit={handleSubmit(onSubmit)}>
           <VStack>
             <FormControl display="flex">
@@ -87,7 +114,7 @@ const Register = () => {
             </ButtonGroup>
           </VStack>
         </form>
-      </Flex>
+      </Flex> */}
     </Box>
   );
 };
