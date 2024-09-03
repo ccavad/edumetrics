@@ -10,29 +10,34 @@ import { RootLayout } from "./RootLayout";
 const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 // other
+import { useDocumentTitle } from "usehooks-ts";
 import { LoadingSpinner } from "../components/layout/LoadingSpinner";
 import { getCompanyData } from "../services/api/companyApi";
 import { useCompanyStore } from "../store/useCompanyStore";
 import useFavicon from "../utils/hooks/useFavicon";
+import { EDU_URL } from "../services/api/constants";
+import { documentText } from "../utils/statics/textConstants";
 
 function App() {
   const setCompanyData = useCompanyStore((state) => state.setCompanyData);
 
-  // useFavicon("");
-
-  const initData = async () => {
-    try {
-      const { data } = await getCompanyData();
-      console.log("initdata", data);
-      setCompanyData(data);
-    } catch (error) {
-      console.error("getCompanyData error: ", error);
-    }
-  };
+  useFavicon(EDU_URL + "/logo");
+  useDocumentTitle(documentText);
 
   useEffect(() => {
     initData();
   }, []);
+
+  const initData = async () => {
+    try {
+      const { data } = await getCompanyData();
+      if (data) {
+        setCompanyData(data);
+      }
+    } catch (error) {
+      console.error("getCompanyData error: ", error);
+    }
+  };
 
   return (
     <ChakraProvider theme={theme}>
