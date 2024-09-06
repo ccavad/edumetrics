@@ -31,7 +31,7 @@ export const HeroSection = () => {
       </Flex>
       <Box position="relative">
         {/* <Image src={greenCircle} alt="circle" /> */}
-        <Image src={EDU_URL + companyData.headerImage} alt="girl book" />
+        <Image src={EDU_URL + companyData?.headerImage} alt="girl book" />
       </Box>
     </SimpleGrid>
   );
