@@ -1,14 +1,18 @@
-import { Container } from "@chakra-ui/react";
+import { Box, Container } from "@chakra-ui/react";
 import { Header } from "../components/layout/Header";
 import { Outlet } from "react-router";
 
 export const RootLayout = () => {
   return (
-    <>
+    <Container maxWidth="1500px" padding={{ base: "1rem" }}>
       <Header />
-      <Container as="main" maxWidth="1200px">
+      <Container
+        as="main"
+        maxWidth="1200px"
+        padding={{ base: "1rem", sm: "1.5rem", md: "2rem" }}
+      >
         <Outlet />
       </Container>
-    </>
+    </Container>
   );
 };

@@ -19,7 +19,13 @@ export const HamburgerDrawer = () => {
 
   return (
     <Box>
-      <Button ref={btnRef} colorScheme="teal" onClick={onOpen} variant="ghost">
+      <Button
+        ref={btnRef}
+        colorScheme="teal"
+        onClick={onOpen}
+        variant="ghost"
+        padding={0}
+      >
         <List size={32} />
       </Button>
       <Drawer

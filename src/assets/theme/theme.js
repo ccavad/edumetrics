@@ -8,6 +8,10 @@ const theme = extendTheme({
       body: {
         // padding: "1rem",
       },
+      // reset default chakra styling
+      ".chakra-select__wrapper": {
+        marginLeft: "-1em",
+      },
     },
   },
   fonts: {
