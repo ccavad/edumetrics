@@ -18,7 +18,7 @@ const pricePackages = [
     price: "$120 / Ay",
     description: "Lorem ipsum dolor sit amet consectetur.",
     buttonText: "QEYDIYYATDAN KEÇ",
-    buttonColor: "#FFA753",
+    buttonColor: "#A4D7F2",
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const pricePackages = [
     price: "$200 / Ay",
     description: "Lorem ipsum dolor sit amet consectetur.",
     buttonText: "QEYDIYYATDAN KEÇ",
-    buttonColor: "#4AE49D",
+    buttonColor: "#A4D7F2",
   },
 ];
 
@@ -36,7 +36,7 @@ export default function PriceSection() {
       direction="column"
       justifyContent="center"
       alignItems="center"
-      mb="100px"
+      mb="150px"
     >
       <Heading as="h3" size="lg" mb="100px">
         TƏHSİL PAKETLƏRİMİZ
