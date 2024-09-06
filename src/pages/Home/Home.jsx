@@ -9,7 +9,6 @@ const Home = () => {
     <>
       <HeroSection />
       <HomeSection/>
-      <Footer/>
     </>
   );
 };

@@ -17,6 +17,7 @@ import { useCompanyStore } from "../store/useCompanyStore";
 // misc
 import { EDU_URL } from "../services/api/constants";
 import { documentText } from "./../utils/statics/templates";
+import FaqPage from "../pages/FAQ/FaqPage";
 
 function App() {
   const initData = useCompanyStore((state) => state.initData);
@@ -55,7 +56,9 @@ function App() {
                     </Suspense>
                   }
                 />
+                <Route path="/faq" element={<FaqPage />} />
               </Route>
+              
             </>
           )}
         </Routes>
