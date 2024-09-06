@@ -105,7 +105,7 @@ export default function FaqPage() {
           fontSize="60px"
           fontWeight="bold"
         >
-          Tez- tez verilən suallar
+          Tez-tez verilən suallar
         </Text>
         <Box
           display="flex"
