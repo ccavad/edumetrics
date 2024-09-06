@@ -18,6 +18,7 @@ function Footer() {
     <>
       <Flex
         width="100%"
+        direction={{ base: "column", md: "row" }} // Column on mobile, row on laptop
         justifyContent={{
           base: "center",
           md: "space-between",
@@ -29,6 +30,7 @@ function Footer() {
         p={4}
         mb="100px"
       >
+        {/* "All rights reserved" Section */}
         <Text
           minWidth="150px"
           textAlign={{
@@ -45,89 +47,102 @@ function Footer() {
           All rights reserved © 2005-2022.
         </Text>
 
-        {/* Company List */}
-        <UnorderedList
-          minWidth="150px"
-          flexGrow={1}
-          styleType="none"
-          m={0}
-          p={0}
-          textAlign={{
-            base: "center",
-            md: "left",
-          }}
+        {/* Company, For Customer, and Contact Lists */}
+        <Flex
+          direction={{ base: "column", md: "row" }} // Stack in column on mobile, side by side on laptop
+          justifyContent="center"
+          alignItems={{ base: "center", md: "flex-start" }}
+          gap={8} // Gap between the three lists
           mb={{ base: 4, md: 0 }}
+          flexGrow={2}
         >
-          <Heading as="h5" size="md" mb={8}>
-            Company
-          </Heading>
-          <Stack
-            spacing="2rem"
-            alignItems={{ base: "center", md: "flex-start" }}
+          {/* Company List */}
+          <UnorderedList
+            minWidth="150px"
+            styleType="none"
+            m={0}
+            p={0}
+            textAlign={{
+              base: "center",
+              md: "left",
+            }}
           >
-            <ListItem>
-              <Link to="/about">HAQQIMIZDA</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/courses">FƏNNLƏR</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/packages">PAKETLƏR</Link>
-            </ListItem>
-          </Stack>
-        </UnorderedList>
+            <Heading as="h5" size="md" mb={4}>
+              Company
+            </Heading>
+            <Stack
+              direction={{ base: "row", md: "column" }} // Side-by-side on mobile, stacked on laptop
+              spacing="2rem"
+              alignItems={{ base: "center", md: "flex-start" }}
+            >
+              <ListItem>
+                <Link to="/about">HAQQIMIZDA</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/courses">FƏNNLƏR</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/packages">PAKETLƏR</Link>
+              </ListItem>
+            </Stack>
+          </UnorderedList>
 
-        {/* For Customer List */}
-        <UnorderedList
-          minWidth="150px"
-          flexGrow={1}
-          styleType="none"
-          m={0}
-          p={0}
-          textAlign={{ base: "center", md: "left" }}
-          mb={{ base: 4, md: 0 }}
-        >
-          <Heading as="h5" size="md" mb={8}>
-            For customer
-          </Heading>
-          <Stack
-            spacing="2rem"
-            alignItems={{ base: "center", md: "flex-start" }}
+          {/* For Customer List */}
+          <UnorderedList
+            minWidth="150px"
+            styleType="none"
+            m={0}
+            p={0}
+            textAlign={{
+              base: "center",
+              md: "left",
+            }}
           >
-            <ListItem>
-              <Link to="/blog">BLOG</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/faq">FAQ</Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/contacts">CONTACTS</Link>
-            </ListItem>
-          </Stack>
-        </UnorderedList>
+            <Heading as="h5" size="md" mb={4}>
+              For customer
+            </Heading>
+            <Stack
+              direction={{ base: "row", md: "column" }} // Side-by-side on mobile, stacked on laptop
+              spacing="2rem"
+              alignItems={{ base: "center", md: "flex-start" }}
+            >
+              <ListItem>
+                <Link to="/blog">BLOG</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/faq">FAQ</Link>
+              </ListItem>
+              <ListItem>
+                <Link to="/contacts">CONTACTS</Link>
+              </ListItem>
+            </Stack>
+          </UnorderedList>
 
-        {/* Contact List */}
-        <UnorderedList
-          minWidth="150px"
-          flexGrow={1}
-          styleType="none"
-          m={0}
-          p={0}
-          textAlign={{ base: "center", md: "left" }}
-          mb={{ base: 4, md: 0 }}
-        >
-          <Heading as="h5" size="md" mb={8}>
-            Contact
-          </Heading>
-          <Stack
-            spacing="2rem"
-            alignItems={{ base: "center", md: "flex-start" }}
+          {/* Contact List */}
+          <UnorderedList
+            minWidth="150px"
+            styleType="none"
+            m={0}
+            p={0}
+            textAlign={{
+              base: "center",
+              md: "left",
+            }}
           >
-            <ListItem>+994 12 567 89 45</ListItem>
-            <ListItem>Street Nizami 3.2 Azerbaijan Baku</ListItem>
-            <ListItem>info@xxxx.com</ListItem>
-          </Stack>
-        </UnorderedList>
+            <Heading as="h5" size="md" mb={4}>
+              Contact
+            </Heading>
+            <Stack
+              direction={{ base: "row", md: "column" }} // Side-by-side on mobile, stacked on laptop
+              spacing="2rem"
+              alignItems={{ base: "center", md: "flex-start" }}
+            >
+              <ListItem>+994 12 567 89 45</ListItem>
+              <ListItem>Street Nizami 3.2 Azerbaijan Baku</ListItem>
+              <ListItem>info@xxxx.com</ListItem>
+            </Stack>
+          </UnorderedList>
+        </Flex>
 
         {/* Social Media Icons */}
         <Flex
@@ -138,7 +153,6 @@ function Footer() {
             md: "flex-end",
           }}
           alignItems="center"
-          alignSelf="flex-start"
           gap={4}
           mb={{ base: 4, md: 0 }}
         >
