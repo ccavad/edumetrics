@@ -153,6 +153,7 @@ function Footer() {
             md: "flex-end",
           }}
           alignItems="center"
+          alignSelf="flex-start"
           gap={4}
           mb={{ base: 4, md: 0 }}
         >
