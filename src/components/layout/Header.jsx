@@ -10,6 +10,7 @@ import { HamburgerDrawer } from "./HamburgerDrawer";
 import { useCompanyStore } from "../../store/useCompanyStore";
 import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const companyData = useCompanyStore((state) => state.companyData);
@@ -23,13 +24,20 @@ export const Header = () => {
     <Container
       width="full"
       height="88px"
-      maxWidth="1175px"
+      maxWidth="1200px"
       padding={{ base: "1rem", sm: "1.5rem", md: "2rem" }}
       as="header"
       display="flex"
+      alignItems="center"
     >
       <HamburgerDrawer />
-      <Image src={EDU_URL + "/logo"} width="50px" />
+      <NavLink to="/">
+        <Image
+          src={EDU_URL + "/logo"}
+          height="50px"
+          ml={{ base: "1rem", md: "4rem" }}
+        />
+      </NavLink>
 
       <Spacer />
       <Select

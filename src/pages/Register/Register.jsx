@@ -1,120 +1,87 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
-  Flex,
-  FormControl,
-  FormLabel,
   Heading,
   Image,
-  Input,
-  Select,
   Text,
   VStack,
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { useForm } from "react-hook-form";
-
-import { RegisterTitle } from "./RegisterTitle";
 import { useState } from "react";
+
+// components
+import { RegisterTitle } from "./RegisterTitle";
 import { RegisterForm } from "./RegisterForm";
 
-const Register = () => {
-  const [registerType, setRegisterType] = useState(null);
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm();
+// icons
+import studentIcon from "../../assets/images/student.svg";
+import parentIcon from "../../assets/images/parent.svg";
+import teacherIcon from "../../assets/images/teacher.svg";
 
-  const onSubmit = (data) => console.log(data);
+const registeredUserTypesData = [
+  {
+    key: "student",
+    label: "Şagird",
+    color: "#4AE49D",
+    description: "Lorem ipsum dolor sit amet consectetur.",
+    icon: studentIcon,
+  },
+  {
+    key: "parent",
+    label: "Valideyn",
+    color: "#FFA753",
+    description: "Lorem ipsum dolor sit amet consectetur.",
+    icon: parentIcon,
+  },
+  {
+    key: "teacher",
+    label: "Müəllim",
+    color: "#A4D7F2",
+    description: "Lorem ipsum dolor sit amet consectetur.",
+    icon: teacherIcon,
+  },
+];
+
+const Register = () => {
+  const [registeredUserType, setRegisteredUserType] = useState(null);
 
   return (
     <Box position="relative">
       <RegisterTitle />
       <VStack alignItems="flex-start">
-        <Heading>Hesab tipi seçin</Heading>
-        {!registerType && (
-          <Wrap justifyContent="center" align="center">
-            <WrapItem>
-              <Button
-                border="2px solid red"
-                width="377px"
-                height="270px"
-                onClick={() => setRegisterType("student")}
-              >
-                Şagird
-              </Button>
-            </WrapItem>
-            <WrapItem>
-              <Button
-                border="2px solid red"
-                width="377px"
-                height="270px"
-                onClick={() => setRegisterType("parent")}
-              >
-                Valideyn
-              </Button>
-            </WrapItem>
-            <WrapItem>
-              <Button
-                border="2px solid red"
-                width="377px"
-                height="270px"
-                onClick={() => setRegisterType("teacher")}
-              >
-                Müəllim
-              </Button>
-            </WrapItem>
-          </Wrap>
+        {!registeredUserType && (
+          <>
+            <Heading mb={8}>Hesab tipi seçin</Heading>
+            <Wrap justify="center" align="center" width="100%">
+              {registeredUserTypesData.map((userType) => (
+                <WrapItem key={userType.key}>
+                  <Box
+                    border={`.4rem solid ${userType.color}`}
+                    _hover={{ borderWidth: `.8rem` }}
+                    borderRadius="4px"
+                    transition=".3s"
+                    width="350px"
+                    height="250px"
+                    onClick={() => setRegisteredUserType(userType.key)}
+                  >
+                    <VStack align="center" justify="center" height="full">
+                      <Image src={userType.icon} alt={userType.key} />
+                      <Heading>{userType.label}</Heading>
+                      <Text>{userType.description}</Text>
+                    </VStack>
+                  </Box>
+                </WrapItem>
+              ))}
+            </Wrap>
+          </>
         )}
       </VStack>
-      {registerType && <RegisterForm registerType={registerType} />}
-      {/* <Flex justifyContent="center">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <VStack>
-            <FormControl display="flex">
-              <FormLabel flex="1">Ad</FormLabel>
-              <Input flex="2" {...register("name")} />
-            </FormControl>
-            <FormControl display="flex">
-              <FormLabel flex="1">Soyad</FormLabel>
-              <Input flex="2" {...register("lastname")} />
-            </FormControl>
-            <FormControl display="flex">
-              <FormLabel flex="1">Cins</FormLabel>
-              <Select flex="2">
-                <option>male</option>
-                <option>female</option>
-              </Select>
-            </FormControl>
-            <FormControl display="flex">
-              <FormLabel flex="1">Fənnin adı</FormLabel>
-              <Select flex="2">
-                <option>math</option>
-                <option>english</option>
-              </Select>
-            </FormControl>
-            <FormControl display="flex">
-              <FormLabel flex="1">Əlaqə nömrəsi / email</FormLabel>
-              <Input flex="2" />
-            </FormControl>
-            <ButtonGroup justifyContent="space-between" width="100%">
-              <Button colorScheme="teal" size="md" type="submit">
-                asd
-              </Button>
-              <Button colorScheme="teal" size="md">
-                asd
-              </Button>
-              <Button colorScheme="teal" size="md">
-                asd
-              </Button>
-            </ButtonGroup>
-          </VStack>
-        </form>
-      </Flex> */}
+      {registeredUserType && (
+        <RegisterForm
+          registeredUserType={registeredUserType}
+          setRegisteredUserType={setRegisteredUserType}
+        />
+      )}
     </Box>
   );
 };
