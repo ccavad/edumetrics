@@ -12,6 +12,9 @@ const theme = extendTheme({
       ".chakra-select__wrapper": {
         marginLeft: "-1em",
       },
+      ".chakra-input__group": {
+        marginLeft: "-1em",
+      },
     },
   },
   fonts: {
