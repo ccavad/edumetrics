@@ -2,9 +2,9 @@ import { create } from "zustand";
 import { languages } from "../utils/statics/constants";
 import { getCompanyData } from "../services/api/apiService";
 
-export const useCompanyStore = create((set) => ({
+export const useCompanyStore = create((set, get) => ({
   companyData: {},
-  setCompanyData: (data) => set((state) => ({ companyData: data })),
+  setCompanyData: (data) => set({ companyData: data }),
   language: languages["aze"],
   setLanguage: (lang) =>
     set((state) => {
@@ -12,8 +12,8 @@ export const useCompanyStore = create((set) => ({
         return { language: lang };
       }
     }),
-  initDataLoading: false,
-  initData: async () => {
+  initCompanyDataLoading: false,
+  initCompanyData: async () => {
     set({ initDataLoading: true });
     try {
       const { data } = await getCompanyData();

@@ -12,11 +12,15 @@ import { useState } from "react";
 // components
 import { RegisterTitle } from "./RegisterTitle";
 import { RegisterForm } from "./RegisterForm";
+import { AuthTitleSection } from "../../components/form/authTitleSection";
 
 // icons
 import studentIcon from "../../assets/images/student.svg";
 import parentIcon from "../../assets/images/parent.svg";
 import teacherIcon from "../../assets/images/teacher.svg";
+
+// misc
+import { textTemplates } from "../../utils/statics/templates";
 
 const registeredUserTypesData = [
   {
@@ -46,8 +50,11 @@ const Register = () => {
   const [registeredUserType, setRegisteredUserType] = useState(null);
 
   return (
-    <Box position="relative">
-      <RegisterTitle />
+    <Box>
+      <AuthTitleSection
+        titleText="Qeydiyyat səhifəsi"
+        description={textTemplates.loremText}
+      />
       <VStack alignItems="flex-start">
         {!registeredUserType && (
           <>
