@@ -17,8 +17,11 @@ import useFavicon from "../utils/hooks/useFavicon";
 import { useCompanyStore } from "../store/useCompanyStore";
 // misc
 import { EDU_URL } from "../services/api/constants";
+
+import FaqPage from "../pages/FAQ/FaqPage";
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
+
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -62,6 +65,8 @@ function App() {
                     </Suspense>
                   }
                 />
+
+                <Route path="/faq" element={<FaqPage />} />
                 <Route
                   path="login"
                   element={
@@ -70,7 +75,9 @@ function App() {
                     </Suspense>
                   }
                 />
+
               </Route>
+              
             </>
           )}
         </Routes>

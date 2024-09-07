@@ -1,6 +1,7 @@
 import { Box, Container } from "@chakra-ui/react";
 import { Header } from "../components/layout/Header";
 import { Outlet } from "react-router";
+import Footer from "../components/layout/Footer";
 
 export const RootLayout = () => {
   return (
@@ -12,6 +13,7 @@ export const RootLayout = () => {
         padding={{ base: "1rem", sm: "1.5rem", md: "2rem" }}
       >
         <Outlet />
+        <Footer/>
       </Container>
     </Container>
   );
