@@ -1,9 +1,9 @@
-import { Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import React from "react";
+import { Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
 
 import greenCircle from "../../assets/images/green_circle.png";
 
-export const RegisterTitle = () => {
+export const AuthTitleSection = ({ titleText, description }) => {
   return (
     <Flex justifyContent="space-between" alignItems="center" gap={5}>
       <VStack alignItems="flex-start" width="40%">
@@ -11,12 +11,9 @@ export const RegisterTitle = () => {
           color="#393939"
           fontSize={{ base: "24px", sm: "40px", md: "60px" }}
         >
-          Qeydiyyat səhifəsi
+          {titleText}
         </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-          egestas vitae
-        </Text>
+        <Text>{description}</Text>
       </VStack>
       <Image
         src={greenCircle}

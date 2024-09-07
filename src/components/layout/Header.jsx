@@ -1,24 +1,20 @@
-import {
-  Container,
-  Flex,
-  Heading,
-  Image,
-  Select,
-  Spacer,
-} from "@chakra-ui/react";
+import { Container, Image, Select, Spacer } from "@chakra-ui/react";
 import { HamburgerDrawer } from "./HamburgerDrawer";
 import { useCompanyStore } from "../../store/useCompanyStore";
 import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
 import { NavLink } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
 
 export const Header = () => {
-  const companyData = useCompanyStore((state) => state.companyData);
-  const setLanguage = useCompanyStore((state) => state.setLanguage);
-  // const { companyData, setLanguage } = useCompanyStore((state) => ({
-  //   companyData: state.companyData,
-  //   setLanguage: state.setLanguage,
-  // }));
+  // const companyData = useCompanyStore((state) => state.companyData);
+  // const setLanguage = useCompanyStore((state) => state.setLanguage);
+  const { companyData, setLanguage } = useCompanyStore(
+    useShallow((state) => ({
+      companyData: state.companyData,
+      setLanguage: state.setLanguage,
+    }))
+  );
 
   return (
     <Container
@@ -34,7 +30,7 @@ export const Header = () => {
       <NavLink to="/">
         <Image
           src={EDU_URL + "/logo"}
-          height="50px"
+          height={{ base: "40px", sm: "60px" }}
           ml={{ base: "1rem", md: "4rem" }}
         />
       </NavLink>

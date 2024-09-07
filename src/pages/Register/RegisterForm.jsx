@@ -4,18 +4,33 @@ import {
   ButtonGroup,
   Flex,
   FormControl,
+  FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Input,
+  InputGroup,
+  InputRightElement,
   Select,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { addUser } from "../../services/api/apiService";
-import { registerFormTemplate } from "../../components/form/formTemplates";
-import { transformFormData } from "../../components/form/authForm";
+import {
+  addUser,
+  checkEmail,
+  checkUsername,
+} from "../../services/api/apiService";
+import {
+  registerFormControlStyle,
+  registerInputStyle,
+  registerLabelStyle,
+} from "../../assets/styles/chakraStyles";
+import { Eye, EyeClosed } from "@phosphor-icons/react";
 
 export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [emailError, setEmailError] = useState(false);
   const {
     register,
     handleSubmit,
@@ -26,24 +41,131 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const result = await addUser(data);
-      console.log("registerUser res", result);
+      const usernameAvailableRes = await checkUsernameAvailable(data.username);
+      const emailAvailableRes = await checkEmailAvailable(data.email);
+
+      if (usernameAvailableRes) {
+        setUsernameError(true);
+      }
+
+      if (emailAvailableRes) {
+        setEmailError(true);
+      }
+
+      if (!usernameAvailableRes && !emailAvailableRes) {
+        const result = await addUser(data);
+      }
     } catch (error) {
       console.error("registerUser error: ", error);
     }
   };
 
+  const checkUsernameAvailable = async (username) => {
+    try {
+      const { data } = await checkUsername(username);
+      return data;
+    } catch (error) {
+      console.error("checkUsername error:", error);
+    }
+  };
+
+  const checkEmailAvailable = async (email) => {
+    try {
+      const { data } = await checkEmail(email);
+      return data;
+    } catch (error) {
+      console.error("checkEmail error:", error);
+    }
+  };
+
   return (
-    <Flex justifyContent="center" width="full">
+    <Flex justifyContent="center" width="full" mt={10}>
       <Box
         as="form"
         onSubmit={handleSubmit(onSubmit)}
         width={{ base: "full", md: "60%" }}
       >
-        <VStack>
-          {registerFormTemplate.map((data) =>
+        <VStack gap={10}>
+          {/* username  */}
+          <FormControl {...registerFormControlStyle} isInvalid={usernameError}>
+            <FormLabel {...registerLabelStyle}>Hesab adı</FormLabel>
+            <Input
+              {...register("username", {
+                required: true,
+                minLength: 5,
+              })}
+              {...registerInputStyle}
+              placeholder="Cemile123"
+            />
+            {usernameError && (
+              <FormErrorMessage>bu istifadeci adi movcuddur</FormErrorMessage>
+            )}
+          </FormControl>
+
+          {/* firstName  */}
+          <FormControl {...registerFormControlStyle}>
+            <FormLabel {...registerLabelStyle}>Adı</FormLabel>
+            <Input
+              {...register("name", {
+                required: true,
+                minLength: 5,
+              })}
+              {...registerInputStyle}
+              placeholder="Cemile"
+            />
+          </FormControl>
+
+          {/* password  */}
+          <FormControl {...registerFormControlStyle}>
+            <FormLabel {...registerLabelStyle}>Parol</FormLabel>
+            <InputGroup {...registerInputStyle}>
+              <Input
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                {...register("password", { required: true })}
+              />
+              <InputRightElement width="4.5rem">
+                <Button
+                  h="1.75rem"
+                  size="sm"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  variant="ghost"
+                >
+                  {showPassword ? <EyeClosed /> : <Eye />}
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+          </FormControl>
+
+          {/* email  */}
+          <FormControl {...registerFormControlStyle} isInvalid={emailError}>
+            <FormLabel {...registerLabelStyle}>Email</FormLabel>
+            <Input
+              type="email"
+              {...register("email", {
+                required: "Email Address is required",
+                minLength: 5,
+              })}
+              {...registerInputStyle}
+              placeholder="cemile@gmail.com"
+            />
+            {emailError && (
+              <FormErrorMessage>bu email artiq movcuddur</FormErrorMessage>
+            )}
+          </FormControl>
+
+          {/* gender  */}
+          <FormControl {...registerFormControlStyle}>
+            <FormLabel {...registerLabelStyle}>Cins</FormLabel>
+            <Select {...register("gender")} {...registerInputStyle}>
+              <option disabled>Seçin</option>
+              <option value="0">male</option>
+              <option value="1">female</option>
+            </Select>
+          </FormControl>
+          {/* {registerFormTemplate.map((data) =>
             transformFormData(data, register)
-          )}
+          )} */}
           <ButtonGroup
             justifyContent="space-between"
             width="100%"

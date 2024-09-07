@@ -10,13 +10,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import heroImage from "../../assets/images/herosection-girl.png";
-// import greenCircle from "../../assets/images/green_circle.png";
 import greenCircle from "../../assets/images/green_circle.svg";
 
 import { EDU_URL } from "../../services/api/constants";
 import { useCompanyStore } from "../../store/useCompanyStore";
-
 
 export const HeroSection = () => {
   const companyData = useCompanyStore((state) => state.companyData);
@@ -33,8 +30,12 @@ export const HeroSection = () => {
         <Button>İNDİ ƏLAQƏ SAXLA</Button>
       </Flex>
       <Box position="relative">
-        {/* <Image src={greenCircle} alt="circle" /> */}
-        <Image src={greenCircle} position="absolute" left="40px" w="500px"/>
+        <Image
+          src={greenCircle}
+          position="absolute"
+          left={{ base: "10px", md: "25px", lg: "40px" }}
+          w="500px"
+        />
         <Image src={EDU_URL + companyData.headerImage} alt="girl book" />
       </Box>
     </SimpleGrid>

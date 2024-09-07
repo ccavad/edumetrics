@@ -1,4 +1,4 @@
-import { Center, Container, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { PacmanLoader } from "react-spinners";
 
 export const LoadingSpinner = () => {
