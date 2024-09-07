@@ -28,7 +28,7 @@ function Footer() {
         gap={4}
         wrap="wrap"
         p={4}
-        mb="100px"
+       
       >
         {/* "All rights reserved" Section */}
         <Text

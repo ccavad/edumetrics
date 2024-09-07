@@ -19,6 +19,9 @@ import { useCompanyStore } from "../store/useCompanyStore";
 import { EDU_URL } from "../services/api/constants";
 
 import FaqPage from "../pages/FAQ/FaqPage";
+
+import ExamsPage from "../pages/Exams/ExamsPage";
+
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 
@@ -67,6 +70,9 @@ function App() {
                 />
 
                 <Route path="/faq" element={<FaqPage />} />
+
+                <Route path="/exams" element={<ExamsPage />} />
+
                 <Route
                   path="login"
                   element={
@@ -75,6 +81,7 @@ function App() {
                     </Suspense>
                   }
                 />
+
 
               </Route>
               
