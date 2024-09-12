@@ -1,10 +1,11 @@
 import { Container, Image, Select, Spacer } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
+
 import { HamburgerDrawer } from "./HamburgerDrawer";
 import { useCompanyStore } from "../../store/useCompanyStore";
 import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
-import { NavLink } from "react-router-dom";
-import { useShallow } from "zustand/react/shallow";
 
 export const Header = () => {
   // const companyData = useCompanyStore((state) => state.companyData);

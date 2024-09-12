@@ -1,7 +1,8 @@
 import axios from "axios";
 import { EDU_URL } from "./constants";
+import { languages } from "../../utils/statics/constants";
 
-export const getCompanyData = async (lang = "aze") => {
+export const getCompanyData = async (lang = languages["aze"]) => {
   const url = EDU_URL + `/home/${lang}`;
   return axios(url);
 };

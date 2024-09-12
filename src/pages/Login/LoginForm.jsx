@@ -89,7 +89,7 @@ export const LoginForm = () => {
                 minLength: 5,
               })}
               {...registerInputStyle}
-              placeholder="Cemile123"
+              placeholder="Enter username"
             />
           </FormControl>
 

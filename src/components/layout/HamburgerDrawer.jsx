@@ -21,7 +21,7 @@ export const HamburgerDrawer = () => {
     <Box>
       <Button
         ref={btnRef}
-        colorScheme="teal"
+        // colorScheme="teal"
         onClick={onOpen}
         variant="ghost"
         padding={0}

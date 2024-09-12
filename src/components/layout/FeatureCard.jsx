@@ -1,9 +1,9 @@
-import { Flex, Box, Heading, Text, Image } from '@chakra-ui/react'; 
+import { Flex, Box, Heading, Text, Image } from "@chakra-ui/react";
 
 const FeatureCard = ({ bg, imageSrc, heading, text }) => (
   <Box
     bg={bg}
-    w="380px"
+    w={{ base: "full", sm: "380px" }}
     textAlign="center"
     p={8}
     display="flex"
@@ -16,9 +16,7 @@ const FeatureCard = ({ bg, imageSrc, heading, text }) => (
     <Heading as="h3" size="md">
       {heading}
     </Heading>
-    <Text>
-      {text}
-    </Text>
+    <Text>{text}</Text>
   </Box>
 );
 
