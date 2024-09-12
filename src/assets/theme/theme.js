@@ -21,6 +21,9 @@ const theme = extendTheme({
     // heading: `'Open Sans', sans-serif`,
     // body: `'Raleway', sans-serif`,
   },
+  breakpoints: {
+    break1000: "1000px",
+  },
 });
 
 export default theme;

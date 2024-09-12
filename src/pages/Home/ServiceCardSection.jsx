@@ -29,20 +29,16 @@ const serviceCardData = [
 
 export default function ServiceCardSection() {
   return (
-    <Flex
-      direction="column"
-      justifyContent="center"
-      alignItems="center"
-      mb="100px"
-    >
+    <Flex direction="column" justifyContent="center" alignItems="center">
       <Heading as="h3" size="lg" mb="100px">
         BİZİM SERVİSLƏR!
       </Heading>
       <Flex
-        justifyContent="center"
-        gap={{ base: "60px", lg: 4 }}
+        justifyContent="space-between"
+        gap={{ base: "60px", lg: "30px" }}
         direction={{ base: "column", lg: "row" }}
         alignItems="center"
+        width={{ base: "auto", lg: "full" }}
       >
         {serviceCardData.map(({ id, imageSrc, heading, text }) => (
           <ServiceCard

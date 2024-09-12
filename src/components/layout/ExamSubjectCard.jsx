@@ -5,15 +5,16 @@ const ExamSubjectCard = ({ title, description, imageSrc, borderColor }) => {
     <Box
       bg="transparent"
       as="section"
-      w="380px"
+      w={{ base: "full", sm: "380px" }}
+      height="200px"
       p="50px 30px"
       borderRadius="10px"
       border={`1px solid ${borderColor}`}
-      cursor="pointer" 
-      transition="outline 0.3s ease, transform 0.3s ease" 
+      cursor="pointer"
+      transition="outline 0.3s ease, transform 0.3s ease"
       _hover={{
-        outline: `3px solid ${borderColor}`, 
-        transform: "scale(1.02)", 
+        outline: `3px solid ${borderColor}`,
+        transform: "scale(1.02)",
       }}
     >
       <Flex justifyContent="center" gap={4} alignItems="center">
@@ -25,7 +26,6 @@ const ExamSubjectCard = ({ title, description, imageSrc, borderColor }) => {
           <Text>{description}</Text>
         </Box>
       </Flex>
-    
     </Box>
   );
 };

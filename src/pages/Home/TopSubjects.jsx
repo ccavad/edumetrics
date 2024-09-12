@@ -1,10 +1,9 @@
-import React from 'react'
-import { Box, Flex, Heading, Image, Text } from '@chakra-ui/react'
-import Azlang from "../../assets/images/azlang.png"
-import Math2 from "../../assets/images/math2.png"
-import Math from "../../assets/images/math.png"
-import SubjectCard from '../../components/layout/ExamSubjectCard'
-
+import React from "react";
+import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import Azlang from "../../assets/images/azlang.png";
+import Math2 from "../../assets/images/math2.png";
+import Math from "../../assets/images/math.png";
+import SubjectCard from "../../components/layout/ExamSubjectCard";
 
 const subjects = [
   {
@@ -27,34 +26,35 @@ const subjects = [
   },
 ];
 
-
-
 export default function TopSubjects() {
   return (
-   <>
-
-<Flex direction="column" justifyContent="center" alignItems="center" mb="100px">
-      <Heading as="h3" size="lg" mb={8}>
-        TOP FƏNLƏR!
-      </Heading>
+    <>
       <Flex
+        direction="column"
         justifyContent="center"
-        gap={4}
-        direction={{ base: "column", lg: "row" }}
         alignItems="center"
+        mb="100px"
       >
-        {subjects.map((subject, index) => (
-          <SubjectCard
-            key={index}
-            title={subject.title}
-            description={subject.description}
-            imageSrc={subject.imageSrc}
-            borderColor={subject.borderColor}
-          />
-        ))}
+        <Heading as="h3" size="lg" mb={8}>
+          TOP FƏNLƏR!
+        </Heading>
+        <Flex
+          justifyContent="center"
+          gap={4}
+          direction={{ base: "column", lg: "row" }}
+          alignItems="center"
+        >
+          {subjects.map((subject, index) => (
+            <SubjectCard
+              key={index}
+              title={subject.title}
+              description={subject.description}
+              imageSrc={subject.imageSrc}
+              borderColor={subject.borderColor}
+            />
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
-  
-   </>
-  )
+    </>
+  );
 }

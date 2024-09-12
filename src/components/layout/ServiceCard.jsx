@@ -1,32 +1,37 @@
 import React from "react";
-import { Box, Image, Heading, Text } from "@chakra-ui/react"; // Import necessary Chakra UI components
+import { Box, Image, Heading, Text, Flex } from "@chakra-ui/react"; // Import necessary Chakra UI components
 
 export default function ServiceCard({ imageSrc, heading, text }) {
   return (
     <>
-      <Box
+      <Flex
         bg="transparent"
         as="section"
-        w="380px"
+        w="full"
         p={4}
-        pt={20}
         borderRadius="10px"
         border="1px solid black"
         position="relative"
+        height="195px"
+        direction="column"
+        align="center"
+        justify="center"
       >
         <Image
           src={imageSrc}
           position="absolute"
-          bottom="90px"
-          left="230px"
+          top="-25%"
+          right="10%"
           bg="white"
           border="15px solid white"
+          width="96px"
+          height="96px"
         />
         <Heading as="h5" size="md">
           {heading}
         </Heading>
         <Text>{text}</Text>
-      </Box>
+      </Flex>
     </>
   );
 }

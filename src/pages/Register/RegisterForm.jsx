@@ -159,8 +159,8 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             <FormLabel {...registerLabelStyle}>Cins</FormLabel>
             <Select {...register("gender")} {...registerInputStyle}>
               <option disabled>Seçin</option>
-              <option value="0">male</option>
-              <option value="1">female</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
             </Select>
           </FormControl>
           {/* {registerFormTemplate.map((data) =>

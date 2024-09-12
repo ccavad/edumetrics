@@ -14,15 +14,15 @@ export const useCompanyStore = create((set, get) => ({
     }),
   initCompanyDataLoading: false,
   initCompanyData: async () => {
-    set({ initDataLoading: true });
+    set({ initCompanyDataLoading: true });
     try {
       const { data } = await getCompanyData();
       if (data) {
-        set({ companyData: data, initDataLoading: false });
+        set({ companyData: data, initCompanyDataLoading: false });
       }
     } catch (error) {
       console.error("getCompanyData error: ", error);
-      set({ initDataLoading: false });
+      set({ initCompanyDataLoading: false });
     }
   },
 }));

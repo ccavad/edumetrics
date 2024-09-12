@@ -20,7 +20,6 @@ import {
   AccordionPanel,
 } from "@chakra-ui/react";
 import { Minus, Plus } from "@phosphor-icons/react";
-import { Form } from "react-hook-form";
 
 // Static data for accordion items
 const accordionData = [
@@ -142,7 +141,8 @@ export default function FaqPage() {
             {({ isExpanded }) => (
               <>
                 <h2>
-                  <AccordionButton p="30px"
+                  <AccordionButton
+                    p="30px"
                     backgroundColor={isExpanded ? "#F5B898" : "transparent"}
                     _hover={{ backgroundColor: "#F5B898" }}
                   >
@@ -170,19 +170,17 @@ export default function FaqPage() {
         ))}
       </Accordion>
 
-      <Box as="form" onSubmit={handleSubmit} p={4} maxWidth="700px" >
+      <Box as="form" onSubmit={handleSubmit} p={4} maxWidth="700px">
         <Flex direction={{ base: "column", md: "row" }} gap={4} mb={4}>
-          <FormControl id="name" flex="1" isRequired >
+          <FormControl id="name" flex="1" isRequired>
             <Input
-           
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               placeholder="Ad"
               border="1px solid #FF7D39"
-            height="60px"
-          
+              height="60px"
             />
           </FormControl>
 
@@ -208,6 +206,8 @@ export default function FaqPage() {
             placeholder="Mesajınızı yazın"
             border="1px solid #FF7D39"
             height="200px"
+            minH="100px"
+            maxH="300px"
           />
         </FormControl>
 

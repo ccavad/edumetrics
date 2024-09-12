@@ -24,14 +24,13 @@ import ExamsPage from "../pages/Exams/ExamsPage";
 
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
-
+import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
   const initCompanyDataLoading = useCompanyStore(
     (state) => state.initCompanyDataLoading
   );
-  const token = useAuthStore((state) => state.token);
   const initToken = useAuthStore((state) => state.initToken);
 
   useFavicon(EDU_URL + "/logo");
@@ -42,6 +41,14 @@ function App() {
     initCompanyData();
   }, []);
 
+  const wrapWithSuspense = (element, isPrivate = false) => {
+    return (
+      <Suspense fallback={<LoadingSpinner />}>
+        {isPrivate ? <PrivateRoute>{element}</PrivateRoute> : element}
+      </Suspense>
+    );
+  };
+
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
@@ -51,40 +58,19 @@ function App() {
           ) : (
             <>
               <Route path="/" element={<RootLayout />}>
-                <Route
-                  index
-                  element={
-                    <Suspense fallback={<LoadingSpinner />}>
-                      <LazyHome />
-                    </Suspense>
-                  }
-                  exact
-                />
+                <Route index element={wrapWithSuspense(<LazyHome />)} exact />
                 <Route
                   path="register"
-                  element={
-                    <Suspense fallback={<LoadingSpinner />}>
-                      <LazyRegister />
-                    </Suspense>
-                  }
+                  element={wrapWithSuspense(<LazyRegister />)}
                 />
-
-                <Route path="/faq" element={<FaqPage />} />
-
-                <Route path="/exams" element={<ExamsPage />} />
-
+                <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
                 <Route
-                  path="login"
-                  element={
-                    <Suspense fallback={<LoadingSpinner />}>
-                      <LazyLogin />
-                    </Suspense>
-                  }
+                  path="/exams"
+                  element={wrapWithSuspense(<ExamsPage />)}
                 />
-
-
+                <Route path="login" element={wrapWithSuspense(<LazyLogin />)} />
+                <Route path="*" element={wrapWithSuspense(<LazyHome />)} />
               </Route>
-              
             </>
           )}
         </Routes>
