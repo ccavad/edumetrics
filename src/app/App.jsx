@@ -7,7 +7,9 @@ import { RootLayout } from "./RootLayout";
 const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
-import { LoadingSpinner } from "../components/layout/LoadingSpinner";
+const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
+import FaqPage from "../pages/FAQ/FaqPage";
+import ExamsPage from "../pages/Exams/ExamsPage";
 // styling
 import "../assets/styles/App.css";
 import theme from "./../assets/theme/theme";
@@ -16,11 +18,8 @@ import { useDocumentTitle } from "usehooks-ts";
 import useFavicon from "../utils/hooks/useFavicon";
 import { useCompanyStore } from "../store/useCompanyStore";
 // misc
+import { LoadingSpinner } from "../components/layout/LoadingSpinner";
 import { EDU_URL } from "../services/api/constants";
-
-import FaqPage from "../pages/FAQ/FaqPage";
-
-import ExamsPage from "../pages/Exams/ExamsPage";
 
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
@@ -28,10 +27,11 @@ import { PrivateRoute } from "./PrivateRoute";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
+  const initToken = useAuthStore((state) => state.initToken);
   const initCompanyDataLoading = useCompanyStore(
     (state) => state.initCompanyDataLoading
   );
-  const initToken = useAuthStore((state) => state.initToken);
+  const initTokenLoading = useAuthStore((state) => state.initTokenLoading);
 
   useFavicon(EDU_URL + "/logo");
   useDocumentTitle(textTemplates.documentTitle);
@@ -53,14 +53,14 @@ function App() {
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          {initCompanyDataLoading ? (
+          {initCompanyDataLoading && initTokenLoading ? (
             <Route index element={<LoadingSpinner />} />
           ) : (
             <>
               <Route path="/" element={<RootLayout />}>
                 <Route index element={wrapWithSuspense(<LazyHome />)} exact />
                 <Route
-                  path="register"
+                  path="/register"
                   element={wrapWithSuspense(<LazyRegister />)}
                 />
                 <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
@@ -68,7 +68,11 @@ function App() {
                   path="/exams"
                   element={wrapWithSuspense(<ExamsPage />)}
                 />
-                <Route path="login" element={wrapWithSuspense(<LazyLogin />)} />
+                <Route
+                  path="/login"
+                  element={wrapWithSuspense(<LazyLogin />)}
+                />
+                <Route path="/test" element={wrapWithSuspense(<LazyTest />)} />
                 <Route path="*" element={wrapWithSuspense(<LazyHome />)} />
               </Route>
             </>

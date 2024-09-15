@@ -12,7 +12,7 @@ export const useCompanyStore = create((set, get) => ({
         return { language: lang };
       }
     }),
-  initCompanyDataLoading: false,
+  initCompanyDataLoading: true,
   initCompanyData: async () => {
     set({ initCompanyDataLoading: true });
     try {

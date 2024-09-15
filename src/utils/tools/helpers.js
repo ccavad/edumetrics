@@ -1,3 +1,9 @@
+export const extractBodyContent = (htmlString) => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, "text/html");
+  return doc.body.innerHTML; // Get the content inside the body tag
+};
+
 export const capitalizeFirstLetter = (string) => {
   if (typeof string !== "string") return "";
   return string.charAt(0).toUpperCase() + string.slice(1);
