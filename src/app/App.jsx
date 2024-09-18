@@ -24,6 +24,7 @@ import { EDU_URL } from "../services/api/constants";
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 import { PrivateRoute } from "./PrivateRoute";
+import { PublicRoute } from "./PublicRoute";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -41,13 +42,22 @@ function App() {
     initCompanyData();
   }, []);
 
-  const wrapWithSuspense = (element, isPrivate = false) => {
+  const wrapWithSuspense = (element, type = "private") => {
     return (
       <Suspense fallback={<LoadingSpinner />}>
-        {isPrivate ? <PrivateRoute>{element}</PrivateRoute> : element}
+        {/* {type === "private" ? (
+          <PrivateRoute>{element}</PrivateRoute>
+        ) : type === "public" ? (
+          <PublicRoute>{element}</PublicRoute>
+        ) : (
+          element
+        )} */}
+        {element}
       </Suspense>
     );
   };
+
+  const isLoggedIn = null;
 
   return (
     <ChakraProvider theme={theme}>
@@ -58,10 +68,14 @@ function App() {
           ) : (
             <>
               <Route path="/" element={<RootLayout />}>
-                <Route index element={wrapWithSuspense(<LazyHome />)} exact />
+                <Route
+                  index
+                  element={wrapWithSuspense(<LazyHome />, "public")}
+                  exact
+                />
                 <Route
                   path="/register"
-                  element={wrapWithSuspense(<LazyRegister />)}
+                  element={wrapWithSuspense(<LazyRegister />, "public")}
                 />
                 <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
                 <Route
@@ -70,10 +84,13 @@ function App() {
                 />
                 <Route
                   path="/login"
-                  element={wrapWithSuspense(<LazyLogin />)}
+                  element={wrapWithSuspense(<LazyLogin />, "public")}
                 />
                 <Route path="/test" element={wrapWithSuspense(<LazyTest />)} />
-                <Route path="*" element={wrapWithSuspense(<LazyHome />)} />
+                <Route
+                  path="*"
+                  element={wrapWithSuspense(<LazyHome />, "public")}
+                />
               </Route>
             </>
           )}

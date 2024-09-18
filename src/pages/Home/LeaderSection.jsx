@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Heading } from "@chakra-ui/react"; // Import necessary Chakra UI components
-import LeaderCard from "../../components/layout/LeaderCard"; // Correct path to LeaderCard component
+import LeaderCard from "./LeaderCard"; // Correct path to LeaderCard component
 import Badge from "../../assets/images/badge.png"; // Correct path to Badge image
 import HomeAvatar from "../../assets/images/homeAvatar.png"; // Correct path to HomeAvatar image
 

@@ -1,5 +1,5 @@
 import { Flex, Heading } from "@chakra-ui/react";
-import FeatureCard from "../../components/layout/FeatureCard";
+import FeatureCard from "./FeatureCard";
 import Arrow from "../../assets/images/arrow.png";
 import LightBulb from "../../assets/images/light.png";
 

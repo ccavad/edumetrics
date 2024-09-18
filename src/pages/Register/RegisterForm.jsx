@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   Select,
+  useToast,
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
@@ -31,12 +32,19 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
+  const toast = useToast();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      type: registeredUserType,
+    },
+  });
+
+  console.log("registeredUserType", registeredUserType);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -54,6 +62,13 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
 
       if (!usernameAvailableRes && !emailAvailableRes) {
         const result = await addUser(data);
+        console.log("addser res", result);
+        //  toast({
+        //   title: "success",
+        //   description: result?.data?.message,
+        //   status: "success",
+        //   position: "bottom-right",
+        // });
       }
     } catch (error) {
       console.error("registerUser error: ", error);
@@ -163,6 +178,17 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
               <option value="female">female</option>
             </Select>
           </FormControl>
+
+          {/* type  */}
+          {/* <FormControl {...registerFormControlStyle}>
+            <FormLabel {...registerLabelStyle}>Tip</FormLabel>
+            <Select {...register("type")} {...registerInputStyle}>
+              <option disabled>Seçin</option>
+              <option value="teacher">teacher</option>
+              <option value="student">student</option>
+              <option value="parent">parent</option>
+            </Select>
+          </FormControl> */}
           {/* {registerFormTemplate.map((data) =>
             transformFormData(data, register)
           )} */}
