@@ -51,9 +51,9 @@ export const getExams = async () => {
   return axios.post(
     url,
     {
-      examType: "duolingo",
-      beginDate: "2024-09-15",
-      endDate: "2024-09-18",
+      examType: "",
+      beginDate: "2024-08-12",
+      endDate: "2024-09-12",
     },
     {
       headers: {
@@ -73,7 +73,7 @@ export const getExamDetail = async (id) => {
 };
 
 export const getExamQuestions = async (id) => {
-  const url = EDU_URL + `getExamQuestions/${id}`;
+  const url = EDU_URL + `/getExamQuestions/${id}`;
   return axios(url, {
     headers: {
       Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
