@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Heading } from "@chakra-ui/react"; // Import necessary Chakra UI components
-import PriceCard from "../../components/layout/PriceCard"; // Correct path to PriceCardItem component
+import PriceCard from "./PriceCard"; // Correct path to PriceCardItem component
 
 // Data array simulating an API response
 const pricePackages = [

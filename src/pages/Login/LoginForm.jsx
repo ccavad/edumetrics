@@ -126,7 +126,7 @@ export const LoginForm = () => {
               colorScheme="teal"
               size="md"
               type="submit"
-              onClick={() => setRegisteredUserType(null)}
+              onClick={() => navigate("/")}
               paddingInline="2.2rem"
             >
               Geri

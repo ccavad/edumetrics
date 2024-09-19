@@ -10,8 +10,20 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import { List } from "@phosphor-icons/react";
+import { NavLink } from "react-router-dom";
+
+const sidebarMenuList = [
+  { title: "Home", path: "/" },
+  { title: "Login", path: "/login" },
+  { title: "Register", path: "/register" },
+  { title: "Test", path: "/test" },
+  { title: "Faq", path: "/faq" },
+  { title: "Exams", path: "/exams" },
+];
 
 export const HamburgerDrawer = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -38,16 +50,24 @@ export const HamburgerDrawer = () => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>heading</DrawerHeader>
+          <DrawerHeader>Menu</DrawerHeader>
 
-          <DrawerBody>body</DrawerBody>
+          <DrawerBody>
+            <UnorderedList styleType="none">
+              {sidebarMenuList.map((menu, ind) => (
+                <ListItem key={ind}>
+                  <NavLink to={menu.path}>{menu.title}</NavLink>
+                </ListItem>
+              ))}
+            </UnorderedList>
+          </DrawerBody>
 
-          <DrawerFooter>
+          {/* <DrawerFooter>
             <Button variant="outline" mr={3} onClick={onClose}>
               Cancel
             </Button>
             <Button colorScheme="blue">Save</Button>
-          </DrawerFooter>
+          </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </Box>

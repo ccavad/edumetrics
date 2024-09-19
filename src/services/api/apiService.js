@@ -2,6 +2,7 @@ import axios from "axios";
 import { EDU_URL } from "./constants";
 import { languages } from "../../utils/statics/constants";
 import { useAuthStore } from "../../store/useAuthStore";
+import dayjs from "dayjs";
 
 const token = useAuthStore.getState().token;
 
@@ -47,16 +48,32 @@ export const getExamTypes = async () => {
 
 export const getExams = async () => {
   const url = EDU_URL + "/getExams";
-  return axios.post(url, {
-    headers: {
-      Token: token,
+  return axios.post(
+    url,
+    {
+      examType: "duolingo",
+      beginDate: "2024-09-15",
+      endDate: "2024-09-18",
     },
-  });
+    {
+      headers: {
+        Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
+      },
+    }
+  );
 };
 
 export const getExamDetail = async (id) => {
   const url = EDU_URL + `/getExamDetail/${id}`;
-  console.log("token", token);
+  return axios(url, {
+    headers: {
+      Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
+    },
+  });
+};
+
+export const getExamQuestions = async (id) => {
+  const url = EDU_URL + `getExamQuestions/${id}`;
   return axios(url, {
     headers: {
       Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,

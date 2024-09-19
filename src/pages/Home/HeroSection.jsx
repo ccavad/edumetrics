@@ -10,15 +10,23 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-
 import heroImage from "../../assets/images/herosection-girl.png";
 import greenCircle from "../../assets/images/green_circle.svg";
 
 import { EDU_URL } from "../../services/api/constants";
 import { useCompanyStore } from "../../store/useCompanyStore";
+import { getExams } from "../../services/api/apiService";
 
 export const HeroSection = () => {
   const companyData = useCompanyStore((state) => state.companyData);
+
+  useEffect(() => {
+    const init = async () => {
+      const res = await getExams();
+      console.log("res", res);
+    };
+    init();
+  }, []);
 
   return (
     <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10}>
@@ -32,7 +40,6 @@ export const HeroSection = () => {
         <Button>İNDİ ƏLAQƏ SAXLA</Button>
       </Flex>
       <Box position="relative">
-
         <Image
           src={greenCircle}
           position="absolute"
@@ -41,9 +48,6 @@ export const HeroSection = () => {
         />
 
         <Image src={EDU_URL + companyData.headerImage} alt="girl book" />
-       
-       
-
       </Box>
     </SimpleGrid>
   );

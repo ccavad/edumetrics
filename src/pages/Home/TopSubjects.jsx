@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import Azlang from "../../assets/images/azlang.png";
 import Math2 from "../../assets/images/math2.png";
 import Math from "../../assets/images/math.png";
-import SubjectCard from "../../components/layout/ExamSubjectCard";
+import SubjectCard from "./ExamSubjectCard";
 
 const subjects = [
   {

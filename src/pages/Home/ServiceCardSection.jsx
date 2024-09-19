@@ -1,6 +1,6 @@
 import React from "react";
 import { Flex, Heading } from "@chakra-ui/react"; // Import necessary Chakra UI components
-import ServiceCard from "../../components/layout/ServiceCard"; // Correct path to ServiceCard
+import ServiceCard from "./ServiceCard"; // Correct path to ServiceCard
 import Books from "../../assets/images/books.png"; // Correct path to Books image
 import Presentation from "../../assets/images/presentation.png"; // Correct path to Presentation image
 import Weakness from "../../assets/images/weakness.png"; // Correct path to Weakness image
