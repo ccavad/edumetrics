@@ -25,6 +25,7 @@ import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import About from "../pages/About/About";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -78,6 +79,8 @@ function App() {
                   element={wrapWithSuspense(<LazyRegister />, "public")}
                 />
                 <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
+                <Route path="/about" element={wrapWithSuspense(<About />)} />
+
                 <Route
                   path="/exams"
                   element={wrapWithSuspense(<ExamsPage />)}

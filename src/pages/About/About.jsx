@@ -1,5 +1,15 @@
-import React from "react";
+import HeaderSection from "./AboutHeader";
+import Exam from "./Exam";
+import MissionSection from "./MissionSection";
+import ServiceSection from "./ServiceSection";
 
-export const About = () => {
-  return <Box>About</Box>;
-};
+const About = () => (
+  <>
+    <HeaderSection />
+    <ServiceSection />
+    <MissionSection />
+    <Exam />
+  </>
+);
+
+export default About;
