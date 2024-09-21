@@ -3,3 +3,10 @@ export const languages = {
   eng: "eng",
   rus: "rus",
 };
+
+export const questionTypes = {
+  Qapalı: "closed",
+  "Açıq kodlaşdırılan": "open",
+  Matrissa: "matrissa",
+  "Tam açıq": "fullOpen",
+};

@@ -5,7 +5,8 @@ import Footer from "../components/layout/Footer";
 
 export const RootLayout = () => {
   return (
-    <Container maxWidth="1500px" padding={{ base: "1rem" }}>
+    // <Container maxWidth="1500px" padding={{ base: "1rem" }}>
+    <>
       <Header />
       <Container
         as="main"
@@ -15,6 +16,7 @@ export const RootLayout = () => {
         <Outlet />
       </Container>
       <Footer />
-    </Container>
+    </>
+    // </Container>
   );
 };
