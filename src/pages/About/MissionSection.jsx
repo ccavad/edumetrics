@@ -1,6 +1,7 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import AboutBackground from "../../assets/images/aboutBackground.png";
+import { textTemplates } from "../../utils/statics/templates";
 
 function MissionSection() {
   return (
@@ -10,16 +11,15 @@ function MissionSection() {
         <Heading as="h3" size="lg">
           MİSSİYAMIZ
         </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-          egestas vitae{" "}
-        </Text>
+        <Text>{textTemplates.loremText}</Text>
       </Box>
 
       {/* Section with background image */}
       <Box
-       borderRadius={10}
-        position="relative"
+        borderRadius={10}
+        position="absolute"
+        left="0"
+        right="0"
         width="100%"
         height="400px" // Adjust the height as needed
         backgroundImage={`url(${AboutBackground})`}
@@ -29,7 +29,6 @@ function MissionSection() {
         overflow="hidden"
       >
         <Box
-       
           position="relative"
           zIndex="1"
           display="flex"

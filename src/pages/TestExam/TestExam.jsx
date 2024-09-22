@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { getExamDetail, getExamQuestions } from "../../services/api/apiService";
-import { Box, Heading, List, ListItem, Text } from "@chakra-ui/react";
-import { RenderHTML } from "../../components/common/RenderHTML";
-import { questionTypes } from "../../utils/statics/constants";
+import { Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+
 import { useLocation } from "react-router";
-import { Navigation } from "../../components/exam/Navigation";
+import { Navigation } from "./Navigation";
+import { QuestionRenderer } from "./QuestionRenderer";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { useExamStore } from "../../store/useExamStore";
 
 const TestExam = () => {
-  const [htmlData, setHtmlData] = useState("");
   const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestionId, setCurrentQuestionId] = useState(1);
+  const setExamAnswers = useExamStore((state) => state.setExamAnswers);
 
   const location = useLocation();
-  console.log("loc", location);
+  // console.log("location", location);
   const examSubject = location?.state?.subject;
-  const examSubjectId = location?.state?.subjectId;
+  const examSubjectId = location?.pathname.split("/")[2];
 
   useEffect(() => {
     initData();
@@ -23,36 +25,63 @@ const TestExam = () => {
   const initData = async () => {
     const res = await getExamQuestions(examSubjectId);
 
-    console.log("getExamQuestions", res);
     if (res?.data) {
       setQuestions(res?.data);
-      // setHtmlData(extractBodyContent(res.data));
+      console.log("questions", res?.data);
+
+      // Check localStorage for existing exam answers
+      const savedExamAnswers = JSON.parse(localStorage.getItem("examAnswers"));
+      if (!savedExamAnswers || !savedExamAnswers[examSubjectId]) {
+        // Initialize default answers with type "missed"
+        const newExamAnswers = res?.data.reduce((acc, question) => {
+          acc[question.questionId] = { value: "", type: "missed" };
+          return acc;
+        }, {});
+
+        // Update Zustand and localStorage
+        setExamAnswers(examSubjectId, newExamAnswers);
+        localStorage.setItem(
+          "examAnswers",
+          JSON.stringify({
+            ...savedExamAnswers,
+            [examSubjectId]: newExamAnswers,
+          })
+        );
+      }
     }
   };
   return (
-    <Box>
+    <VStack align="center" gap="2rem">
       <Heading textAlign="center">{examSubject}</Heading>
       <Navigation
         questionList={questions}
-        currentQuestion={currentQuestion}
-        setCurrentQuestion={setCurrentQuestion}
+        currentQuestion={currentQuestionId}
+        setCurrentQuestion={setCurrentQuestionId}
       />
-      {questions.map((ques) => (
-        <Box key={ques?.questionId}>
-          <Text fontWeight="bold">
-            <RenderHTML htmlString={ques?.questionText} />
-          </Text>
-          <List>
-            {ques?.questionType === questionTypes.closed &&
-              ques?.answers.map((answer) => (
-                <ListItem key={answer?.id}>
-                  <RenderHTML htmlString={answer.answer} />
-                </ListItem>
-              ))}
-          </List>
-        </Box>
-      ))}
-    </Box>
+      {<QuestionRenderer question={questions[currentQuestionId - 1]} />}
+      <HStack>
+        <Button
+          // variant="ghost"
+          display="flex"
+          flexDirection="column"
+          alignItems="flex-end"
+          isDisabled={currentQuestionId <= 1 ? true : false}
+          onClick={() => setCurrentQuestionId((prev) => prev - 1)}
+        >
+          <ArrowLeft size="32" />
+          <Text>Əvvəlki</Text>
+        </Button>
+        <Button
+          display="flex"
+          flexDirection="column"
+          isDisabled={currentQuestionId >= questions.length ? true : false}
+          onClick={() => setCurrentQuestionId((prev) => prev + 1)}
+        >
+          <ArrowRight size="32" />
+          Sonraki
+        </Button>
+      </HStack>
+    </VStack>
   );
 };
 

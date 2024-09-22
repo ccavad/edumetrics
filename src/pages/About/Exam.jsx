@@ -3,18 +3,18 @@ import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import Image1 from "../../assets/images/image1.png";
 import Image2 from "../../assets/images/image2.png";
 import Image3 from "../../assets/images/image3.png";
+import { useNavigate } from "react-router";
+import { textTemplates } from "./../../utils/statics/templates";
 
 function Exam() {
+  const navigate = useNavigate();
   return (
-    <>
+    <Box mt="30rem">
       <Box textAlign="center" mb="50px">
         <Heading as="h3" size="lg">
           SINAQLAR
         </Heading>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-          egestas vitae{" "}
-        </Text>
+        <Text>{textTemplates.loremText}</Text>
       </Box>
       <Flex gap="50px">
         <Box>
@@ -34,12 +34,12 @@ function Exam() {
             18.05.2023
           </Text>
           <Text mb="80px">Lorem ipsum dolor sit amet consectetur...</Text>
-          <Button bg="#A4D7F2" w="100%">
+          <Button bg="#A4D7F2" w="100%" onClick={() => navigate("/register")}>
             QEYDİYYATDAN KEÇ
           </Button>
         </Box>
       </Flex>
-    </>
+    </Box>
   );
 }
 

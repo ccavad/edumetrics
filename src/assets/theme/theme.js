@@ -6,10 +6,6 @@ import { themeColors } from "./colors";
 const theme = extendTheme({
   styles: {
     global: {
-      "#root": {
-        maxWidth: "1500px",
-        padding: "1rem",
-      },
       // reset default chakra styling
       ".chakra-select__wrapper": {
         marginLeft: "-1em",

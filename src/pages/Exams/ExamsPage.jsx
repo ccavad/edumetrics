@@ -101,8 +101,8 @@ export default function ExamsPage() {
             imageSrc={topic?.iconUrl}
             borderColor={examSubjects[index]?.borderColor}
             onClick={() =>
-              navigate("/test", {
-                state: { subject: topic?.subject, subjectId: index },
+              navigate(`/test/${index}`, {
+                state: { subject: topic?.subject },
               })
             }
           />

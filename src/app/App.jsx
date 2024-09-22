@@ -8,8 +8,10 @@ const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
 const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
+const LazyAbout = lazy(() => import("../pages/About/About"));
 import FaqPage from "../pages/FAQ/FaqPage";
 import ExamsPage from "../pages/Exams/ExamsPage";
+
 // styling
 import "../assets/styles/App.css";
 import theme from "./../assets/theme/theme";
@@ -25,7 +27,6 @@ import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
-import About from "../pages/About/About";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -79,7 +80,10 @@ function App() {
                   element={wrapWithSuspense(<LazyRegister />, "public")}
                 />
                 <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
-                <Route path="/about" element={wrapWithSuspense(<About />)} />
+                <Route
+                  path="/about"
+                  element={wrapWithSuspense(<LazyAbout />)}
+                />
 
                 <Route
                   path="/exams"
@@ -89,7 +93,10 @@ function App() {
                   path="/login"
                   element={wrapWithSuspense(<LazyLogin />, "public")}
                 />
-                <Route path="/test" element={wrapWithSuspense(<LazyTest />)} />
+                <Route
+                  path="/test/:id"
+                  element={wrapWithSuspense(<LazyTest />)}
+                />
                 <Route
                   path="*"
                   element={wrapWithSuspense(<LazyHome />, "public")}

@@ -5,6 +5,7 @@ import Books from "../../assets/images/books.png"; // Correct path to Books imag
 import Presentation from "../../assets/images/presentation.png"; // Correct path to Presentation image
 import Weakness from "../../assets/images/weakness.png"; // Correct path to Weakness image
 import ServiceCard from "../Home/ServiceCard";
+import { textTemplates } from "../../utils/statics/templates";
 
 // Data array simulating an API response
 const serviceCardData = [
@@ -39,10 +40,7 @@ export default function ServiceSection() {
       <Heading as="h3" size="lg">
         XİDMƏTLƏRİMİZ
       </Heading>
-      <Text mb="100px">
-        Lorem ipsum dolor sit amet consectetur. Turpis venenatis tincidunt
-        egestas vitae
-      </Text>
+      <Text mb="100px">{textTemplates.loremText}</Text>
 
       <Flex
         justifyContent="space-between"
