@@ -1,5 +1,5 @@
 import { Container, Image, Select, Spacer } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 
 import { HamburgerDrawer } from "./HamburgerDrawer";
@@ -16,6 +16,10 @@ export const Header = () => {
       setLanguage: state.setLanguage,
     }))
   );
+  // const location = useLocation();
+  // const pagePath = location.pathname
+  // const darkBgPages = ["faq", "exams"]
+  // const isDarkBgPage = darkBgPages.includes(pagePath)
 
   return (
     <Container
@@ -42,6 +46,7 @@ export const Header = () => {
         borderRadius="10px"
         borderColor="#262626"
         onChange={(e) => setLanguage(e.target.value.toLowerCase())}
+        // bg={isDarkBgPage ? "white" : "black"}
       >
         {!isEmptyObject(companyData) &&
           companyData.languageList.map((lang) => (

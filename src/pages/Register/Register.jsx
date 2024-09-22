@@ -24,7 +24,7 @@ import { textTemplates } from "../../utils/statics/templates";
 
 const registeredUserTypesData = [
   {
-    key: "student",
+    key: "child",
     label: "Şagird",
     color: "#4AE49D",
     description: "Lorem ipsum dolor sit amet consectetur.",

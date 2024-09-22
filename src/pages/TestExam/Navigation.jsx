@@ -1,0 +1,79 @@
+import {
+  Box,
+  Flex,
+  Heading,
+  HStack,
+  List,
+  ListItem,
+  SimpleGrid,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { DotsNine } from "@phosphor-icons/react";
+import React from "react";
+import { useExamStore } from "../../store/useExamStore";
+
+const navigationLabels = [
+  { label: "Cavablandirilmis", color: "navigation.answered" },
+  { label: "Buraxilmis", color: "navigation.missed" },
+  { label: "Isarelenmis", color: "navigation.marked" },
+];
+
+const hardCodedExamId = 1;
+
+export const Navigation = ({
+  questionList,
+  // = Array.from({ length: 20 }, (_, i) => ({ index: i + 1 }))
+  currentQuestion,
+  setCurrentQuestion,
+}) => {
+  const examAnswers = useExamStore((state) => state.examAnswers);
+
+  return (
+    <Box
+      border="2px solid #FF7D39"
+      borderRadius="4px"
+      p={{ base: ".5rem", sm: "1rem" }}
+      w={{ base: "100%", sm: "300px" }}
+      aspectRatio="1/1"
+    >
+      <VStack gap={7}>
+        <HStack>
+          <DotsNine size={32} />
+          <Heading as="h5">Suallar</Heading>
+        </HStack>
+        <SimpleGrid columns={5} spacing={3}>
+          {examAnswers[hardCodedExamId] &&
+            Object.values(examAnswers[hardCodedExamId]).map((answer, ind) => (
+              <Flex
+                key={ind}
+                borderRadius="50%"
+                bg={`navigation.${answer?.type}`}
+                w="32px"
+                h="32px"
+                justifyContent="center"
+                alignItems="center"
+                cursor="pointer"
+                onClick={() => setCurrentQuestion(ind + 1)}
+              >
+                <Text color="black">{ind + 1}</Text>
+              </Flex>
+            ))}
+        </SimpleGrid>
+        <List>
+          {navigationLabels.map((nav) => (
+            <ListItem
+              display="flex"
+              gap={2}
+              alignItems="center"
+              key={nav.label}
+            >
+              <Box bg={nav.color} borderRadius="50%" w="9px" h="9px"></Box>
+              <Text>{nav.label}</Text>
+            </ListItem>
+          ))}
+        </List>
+      </VStack>
+    </Box>
+  );
+};

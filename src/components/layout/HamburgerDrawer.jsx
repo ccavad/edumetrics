@@ -18,9 +18,10 @@ import { NavLink } from "react-router-dom";
 
 const sidebarMenuList = [
   { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
   { title: "Login", path: "/login" },
   { title: "Register", path: "/register" },
-  { title: "Test", path: "/test" },
+  // { title: "Test", path: "/test" },
   { title: "Faq", path: "/faq" },
   { title: "Exams", path: "/exams" },
 ];

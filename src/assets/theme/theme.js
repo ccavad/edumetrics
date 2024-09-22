@@ -1,13 +1,11 @@
 import { extendTheme } from "@chakra-ui/react";
+import { themeColors } from "./colors";
 // import "@fontsource-variable/open-sans";
 // import "@fontsource-variable/raleway";
 
 const theme = extendTheme({
   styles: {
     global: {
-      body: {
-        // padding: "1rem",
-      },
       // reset default chakra styling
       ".chakra-select__wrapper": {
         marginLeft: "-1em",
@@ -21,6 +19,7 @@ const theme = extendTheme({
     // heading: `'Open Sans', sans-serif`,
     // body: `'Raleway', sans-serif`,
   },
+  colors: themeColors,
   breakpoints: {
     break1000: "1000px",
   },

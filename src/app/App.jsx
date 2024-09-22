@@ -8,8 +8,10 @@ const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
 const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
+const LazyAbout = lazy(() => import("../pages/About/About"));
 import FaqPage from "../pages/FAQ/FaqPage";
 import ExamsPage from "../pages/Exams/ExamsPage";
+
 // styling
 import "../assets/styles/App.css";
 import theme from "./../assets/theme/theme";
@@ -79,6 +81,11 @@ function App() {
                 />
                 <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
                 <Route
+                  path="/about"
+                  element={wrapWithSuspense(<LazyAbout />)}
+                />
+
+                <Route
                   path="/exams"
                   element={wrapWithSuspense(<ExamsPage />)}
                 />
@@ -86,7 +93,10 @@ function App() {
                   path="/login"
                   element={wrapWithSuspense(<LazyLogin />, "public")}
                 />
-                <Route path="/test" element={wrapWithSuspense(<LazyTest />)} />
+                <Route
+                  path="/test/:id"
+                  element={wrapWithSuspense(<LazyTest />)}
+                />
                 <Route
                   path="*"
                   element={wrapWithSuspense(<LazyHome />, "public")}
