@@ -58,6 +58,7 @@ export default function LeadersSection() {
         gap={{ base: "60px", lg: 4 }}
         direction={{ base: "column", lg: "row" }}
         alignItems="center"
+        
       >
         {leadersData.map(
           ({
