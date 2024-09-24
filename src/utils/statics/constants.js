@@ -8,7 +8,7 @@ export const questionTypesList = {
   Qapalı: "closed",
   "Açıq kodlaşdırılan": "open",
   Matrissa: "matrissa",
-  "Tam açıq": "fullOpen",
+  "Tam açıq": "full",
 };
 
 export const examAnswerTypes = {

@@ -12,7 +12,7 @@ import {
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useEffect } from "react";
 import { Question } from "@phosphor-icons/react";
 import { RenderHTML } from "../../components/common/RenderHTML";
 import {
@@ -20,6 +20,7 @@ import {
   questionTypesList,
 } from "../../utils/statics/constants";
 import { useExamStore } from "../../store/useExamStore";
+import { useForm } from "react-hook-form";
 
 const hardCodedExamId = 1;
 
@@ -79,7 +80,16 @@ const QuestionBody = ({ question }) => {
   const setExamAnswersByQuestion = useExamStore(
     (state) => state.setExamAnswersByQuestion
   );
-  const selectedQuizAnswer = examAnswers["1"]?.[question?.questionId];
+  const selectedQuestionAnswer = examAnswers["1"]?.[question?.questionId];
+  const { register, handleSubmit, setValue } = useForm({
+    defaultValues: {
+      textAreaAnswer: selectedQuestionAnswer?.value,
+    },
+  });
+
+  useEffect(() => {
+    setValue("textAreaAnswer", selectedQuestionAnswer.value);
+  }, [selectedQuestionAnswer, setValue]);
 
   if (questionTypesList[question?.questionType] === "closed") {
     return (
@@ -94,7 +104,7 @@ const QuestionBody = ({ question }) => {
             <Button
               borderRadius={0}
               border={
-                selectedQuizAnswer?.value == answer?.id ? "" : "1px solid"
+                selectedQuestionAnswer?.value == answer?.id ? "" : "1px solid"
               }
               display="flex"
               fontSize="24px"
@@ -102,13 +112,15 @@ const QuestionBody = ({ question }) => {
               h="40px"
               justifyContent="center"
               alignItems="center"
-              bg={selectedQuizAnswer?.value == answer?.id ? "lightBlue" : ""}
+              bg={
+                selectedQuestionAnswer?.value == answer?.id ? "lightBlue" : ""
+              }
               cursor="pointer"
               onClick={() =>
                 setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
                   value: answer?.id,
                   type:
-                    selectedQuizAnswer?.type === examAnswerTypes.marked
+                    selectedQuestionAnswer?.type === examAnswerTypes.marked
                       ? examAnswerTypes.marked
                       : examAnswerTypes.answered,
                 })
@@ -122,7 +134,36 @@ const QuestionBody = ({ question }) => {
       </List>
     );
   }
-  if (questionTypesList[question?.questionType] === "open") {
-    return <Textarea placeholder="cavabi yazin" maxH="300px" />;
+
+  if (
+    questionTypesList[question?.questionType] === "open" ||
+    questionTypesList[question?.questionType] === "full"
+  ) {
+    return (
+      <VStack gap={5}>
+        <Textarea
+          placeholder="cavabi yazin"
+          maxH="300px"
+          {...register("textAreaAnswer")}
+        />
+        <Button
+          onClick={handleSubmit((data) =>
+            setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
+              value: data?.textAreaAnswer,
+              type:
+                selectedQuestionAnswer?.type === examAnswerTypes.marked
+                  ? examAnswerTypes.marked
+                  : examAnswerTypes.answered,
+            })
+          )}
+        >
+          Submit answer
+        </Button>
+      </VStack>
+    );
+  }
+
+  if (questionTypesList[question?.questionType] === "matrissa") {
+    return <Box>matrissa</Box>;
   }
 };

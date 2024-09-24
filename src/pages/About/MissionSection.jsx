@@ -5,9 +5,9 @@ import { textTemplates } from "../../utils/statics/templates";
 
 function MissionSection() {
   return (
-    <Box width="100%" overflow="hidden" mb="100px">
+    <Box width="100%" overflow="hidden">
       {/* Heading and description */}
-      <Box textAlign="center" mb="50px">
+      <Box textAlign="center" mb="40px">
         <Heading as="h3" size="lg">
           MİSSİYAMIZ
         </Heading>
@@ -16,12 +16,12 @@ function MissionSection() {
 
       {/* Section with background image */}
       <Box
-        borderRadius={10}
+        borderRadius={2}
         position="absolute"
         left="0"
         right="0"
         width="100%"
-        height="400px" // Adjust the height as needed
+        height="668px" // Adjust the height as needed
         backgroundImage={`url(${AboutBackground})`}
         backgroundSize="cover"
         backgroundPosition="center"

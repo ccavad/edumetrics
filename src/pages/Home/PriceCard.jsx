@@ -17,6 +17,11 @@ export default function PriceCard({
       p="30px"
       borderRadius="10px"
       border="1px solid black"
+      transition="transform 0.3s ease, background-color 0.3s ease"
+        cursor="pointer"
+        _hover={{
+          transform: "scale(1.05)", // Slightly scale up the card on hover
+        }}
     >
       <Flex
         justifyContent="center"

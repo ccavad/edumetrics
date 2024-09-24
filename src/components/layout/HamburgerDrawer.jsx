@@ -24,6 +24,7 @@ const sidebarMenuList = [
   // { title: "Test", path: "/test" },
   { title: "Faq", path: "/faq" },
   { title: "Exams", path: "/exams" },
+  { title: "Statistics", path: "/statistics" },
 ];
 
 export const HamburgerDrawer = () => {
