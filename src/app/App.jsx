@@ -11,6 +11,7 @@ const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
 const LazyAbout = lazy(() => import("../pages/About/About"));
 import FaqPage from "../pages/FAQ/FaqPage";
 import ExamsPage from "../pages/Exams/ExamsPage";
+import { Statistics } from "../pages/Statistics/StatisticsLayout";
 
 // styling
 import "../assets/styles/App.css";
@@ -27,7 +28,6 @@ import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
-import { Statistics } from "../pages/Statistics/StatisticsLayout";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
