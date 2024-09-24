@@ -27,6 +27,7 @@ import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
 import { PrivateRoute } from "./PrivateRoute";
 import { PublicRoute } from "./PublicRoute";
+import { Statistics } from "../pages/Statistics/StatisticsLayout";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -102,6 +103,7 @@ function App() {
                   element={wrapWithSuspense(<LazyHome />, "public")}
                 />
               </Route>
+              <Route path="/statistics" element={<Statistics />} />
             </>
           )}
         </Routes>
