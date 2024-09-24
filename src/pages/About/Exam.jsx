@@ -9,7 +9,7 @@ import { textTemplates } from "./../../utils/statics/templates";
 function Exam() {
   const navigate = useNavigate();
   return (
-    <Box mt="30rem">
+    <Box mt="50rem">
       <Box textAlign="center" mb="50px">
         <Heading as="h3" size="lg">
           SINAQLAR

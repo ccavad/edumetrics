@@ -102,17 +102,19 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
           {/* username  */}
           <FormControl {...registerFormControlStyle} isInvalid={usernameError}>
             <FormLabel {...registerLabelStyle}>Hesab adı</FormLabel>
-            <Input
-              {...register("username", {
-                required: true,
-                minLength: 5,
-              })}
-              {...registerInputStyle}
-              placeholder="Cemile123"
-            />
-            {usernameError && (
-              <FormErrorMessage>bu istifadeci adi movcuddur</FormErrorMessage>
-            )}
+            <Box w="65%">
+              <Input
+                {...register("username", {
+                  required: true,
+                  minLength: 5,
+                })}
+                {...registerInputStyle}
+                placeholder="Cemile123"
+              />
+              {usernameError && (
+                <FormErrorMessage>bu istifadeci adi movcuddur</FormErrorMessage>
+              )}
+            </Box>
           </FormControl>
 
           {/* firstName  */}
@@ -127,7 +129,6 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
               placeholder="Cemile"
             />
           </FormControl>
-
           {/* password  */}
           <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Parol</FormLabel>
@@ -150,21 +151,28 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             </InputGroup>
           </FormControl>
 
-          {/* email  */}
+          {/* Email */}
           <FormControl {...registerFormControlStyle} isInvalid={emailError}>
             <FormLabel {...registerLabelStyle}>Email</FormLabel>
-            <Input
-              type="email"
-              {...register("email", {
-                required: "Email Address is required",
-                minLength: 5,
-              })}
-              {...registerInputStyle}
-              placeholder="cemile@gmail.com"
-            />
-            {emailError && (
-              <FormErrorMessage>bu email artiq movcuddur</FormErrorMessage>
-            )}
+
+            {/* Group Input and ErrorMessage without changing Input size */}
+            <Box w="65%">
+              <Input
+                type="email"
+                {...register("email", {
+                  required: "Email Address is required",
+                  minLength: 5,
+                })}
+                {...registerInputStyle}
+                placeholder="cemile@gmail.com"
+                // No margin or padding changes to Input to keep its size consistent
+              />
+
+              {/* Error message directly below without affecting input size */}
+              {emailError && (
+                <FormErrorMessage>bu email artiq movcuddur</FormErrorMessage>
+              )}
+            </Box>
           </FormControl>
 
           {/* gender  */}

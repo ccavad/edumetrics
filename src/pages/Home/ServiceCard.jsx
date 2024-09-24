@@ -16,6 +16,11 @@ export default function ServiceCard({ imageSrc, heading, text }) {
         direction="column"
         align="center"
         justify="center"
+        transition="transform 0.3s ease, background-color 0.3s ease"
+        cursor="pointer"
+        _hover={{
+          transform: "scale(1.05)", // Slightly scale up the card on hover
+        }}
       >
         <Image
           src={imageSrc}
