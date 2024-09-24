@@ -40,13 +40,13 @@ const TestExam = () => {
 
         // Update Zustand and localStorage
         setExamAnswers(examSubjectId, newExamAnswers);
-        localStorage.setItem(
-          "examAnswers",
-          JSON.stringify({
-            ...savedExamAnswers,
-            [examSubjectId]: newExamAnswers,
-          })
-        );
+        // localStorage.setItem(
+        //   "examAnswers",
+        //   JSON.stringify({
+        //     ...savedExamAnswers,
+        //     [examSubjectId]: newExamAnswers,
+        //   })
+        // );
       }
     }
   };
@@ -62,6 +62,7 @@ const TestExam = () => {
       <HStack>
         <Button
           // variant="ghost"
+          bg="transparent"
           display="flex"
           flexDirection="column"
           alignItems="flex-end"
@@ -72,6 +73,7 @@ const TestExam = () => {
           <Text>Əvvəlki</Text>
         </Button>
         <Button
+          bg="transparent"
           display="flex"
           flexDirection="column"
           isDisabled={currentQuestionId >= questions.length ? true : false}

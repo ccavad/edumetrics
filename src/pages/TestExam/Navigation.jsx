@@ -28,6 +28,7 @@ export const Navigation = ({
   setCurrentQuestion,
 }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
+  const changeQuestion = useExamStore((state) => state.changeQuestion);
 
   return (
     <Box
@@ -54,7 +55,10 @@ export const Navigation = ({
                 justifyContent="center"
                 alignItems="center"
                 cursor="pointer"
-                onClick={() => setCurrentQuestion(ind + 1)}
+                onClick={() => {
+                  changeQuestion(currentQuestion, ind + 1);
+                  setCurrentQuestion(ind + 1);
+                }}
               >
                 <Text color="black">{ind + 1}</Text>
               </Flex>
