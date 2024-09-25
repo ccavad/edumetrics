@@ -5,7 +5,6 @@ import {
   useDisclosure,
   Drawer,
   DrawerBody,
-  DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
   DrawerContent,
@@ -21,33 +20,40 @@ const sidebarMenuList = [
   { title: "About", path: "/about" },
   { title: "Login", path: "/login" },
   { title: "Register", path: "/register" },
-  // { title: "Test", path: "/test" },
   { title: "Faq", path: "/faq" },
   { title: "Exams", path: "/exams" },
   { title: "Statistics", path: "/statistics" },
 ];
 
-export const HamburgerDrawer = () => {
+export const HamburgerDrawer = ({ isDarkBgPages }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
+  // Define button styles based on isDarkBgPages
+  const buttonStyles = {
+    color: isDarkBgPages ? "#ffffff" : "#111", // Change color based on the page
+    bg: "transparent", // Keep background transparent
+    _hover: {
+      bg: isDarkBgPages ? "rgba(0, 0, 0, 0.1)" : "rgba(255, 255, 255, 0.1)", // Light hover effect
+    },
+  };
 
   return (
     <Box>
       <Button
         ref={btnRef}
-        // colorScheme="teal"
         onClick={onOpen}
         variant="ghost"
         padding={0}
+        sx={buttonStyles} // Apply conditional styles
       >
-        <List size={32} />
+        <List size={32} color={buttonStyles.color} /> {/* Ensure icon color matches button text */}
       </Button>
       <Drawer
         isOpen={isOpen}
         placement="left"
         onClose={onClose}
         finalFocusRef={btnRef}
-        // size="lg"
       >
         <DrawerOverlay />
         <DrawerContent>
@@ -63,13 +69,6 @@ export const HamburgerDrawer = () => {
               ))}
             </UnorderedList>
           </DrawerBody>
-
-          {/* <DrawerFooter>
-            <Button variant="outline" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button colorScheme="blue">Save</Button>
-          </DrawerFooter> */}
         </DrawerContent>
       </Drawer>
     </Box>

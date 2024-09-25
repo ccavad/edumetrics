@@ -8,18 +8,24 @@ import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
 
 export const Header = () => {
-  // const companyData = useCompanyStore((state) => state.companyData);
-  // const setLanguage = useCompanyStore((state) => state.setLanguage);
   const { companyData, setLanguage } = useCompanyStore(
     useShallow((state) => ({
       companyData: state.companyData,
       setLanguage: state.setLanguage,
     }))
   );
-  // const location = useLocation();
-  // const pagePath = location.pathname
-  // const darkBgPages = ["faq", "exams"]
-  // const isDarkBgPage = darkBgPages.includes(pagePath)
+  
+  const location = useLocation();
+  const pagePath = location.pathname;
+  const DarkBgPages = ["/faq", "/exams"]; // Replace with your actual paths
+  const isDarkBgPages = DarkBgPages.includes(pagePath);
+
+  const selectStyles = {
+    borderRadius: "10px",
+    borderColor: isDarkBgPages ? "#f0f0f0" : "#f0f0f0",
+    backgroundColor: isDarkBgPages ? "#ffffff" : "#ffffff",
+    color: isDarkBgPages ? "#1a1a1a" : "#1a1a1a",
+  };
 
   return (
     <Container
@@ -31,22 +37,21 @@ export const Header = () => {
       display="flex"
       alignItems="center"
     >
-      <HamburgerDrawer />
+      <HamburgerDrawer isDarkBgPages={isDarkBgPages} />
       <NavLink to="/">
         <Image
           src={EDU_URL + "/logo"}
           height={{ base: "40px", sm: "60px" }}
           ml={{ base: "1rem", md: "4rem" }}
+          filter={isDarkBgPages ? "invert(1) brightness(10000%) saturate(100%)" : "none"}
         />
       </NavLink>
 
       <Spacer />
       <Select
         w="84px"
-        borderRadius="10px"
-        borderColor="#262626"
         onChange={(e) => setLanguage(e.target.value.toLowerCase())}
-        // bg={isDarkBgPage ? "white" : "black"}
+        sx={selectStyles}
       >
         {!isEmptyObject(companyData) &&
           companyData.languageList.map((lang) => (
