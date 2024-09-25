@@ -55,7 +55,7 @@ export const LoginForm = () => {
   useEffect(() => {
     if (!debouncedUsername) {
       // If the username input is empty, reset the validation state
-      setIsUsernameValid(null); // null means no validation state, so hide the message
+      setIsUsernameValid(true); // null means no validation state, so hide the message
       setLoading(false);
       return; // Exit early if input is empty
     }
@@ -86,7 +86,6 @@ export const LoginForm = () => {
       return;
     }
 
-    console.log(data);
     try {
       const result = await accessToken(data);
       if (result?.data?.answer) {
@@ -124,8 +123,8 @@ export const LoginForm = () => {
         <VStack gap={10}>
           {/* username  */}
           <FormControl
-            {...registerFormControlStyle}
             isInvalid={!isUsernameValid}
+            {...registerFormControlStyle}
           >
             <FormLabel {...registerLabelStyle}>Hesab adı</FormLabel>
             <Box w="65%">
