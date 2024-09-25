@@ -58,7 +58,7 @@ const TestExam = () => {
         currentQuestion={currentQuestionId}
         setCurrentQuestion={setCurrentQuestionId}
       />
-      {<QuestionRenderer question={questions[currentQuestionId - 1]} />}
+      <QuestionRenderer question={questions[currentQuestionId - 1]} />
       <HStack>
         <Button
           // variant="ghost"
