@@ -27,12 +27,14 @@ import {
   registerLabelStyle,
 } from "../../assets/styles/chakraStyles";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
+import { useDebounced } from "../../utils/hooks/useDebounced";
 
 export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const toast = useToast();
+  
   const {
     register,
     handleSubmit,
@@ -43,6 +45,35 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
       type: registeredUserType,
     },
   });
+
+  const watchUsername = watch("username");
+  const watchEmail = watch("email");
+
+  // Apply debounce to username and email
+  const debouncedUsername = useDebounced(watchUsername, 500);
+  const debouncedEmail = useDebounced(watchEmail, 500);
+
+  useEffect(() => {
+    const checkUsernameAvailability = async () => {
+      if (debouncedUsername) {
+        const usernameAvailableRes = await checkUsernameAvailable(debouncedUsername);
+        setUsernameError(usernameAvailableRes);
+      }
+    };
+
+    checkUsernameAvailability();
+  }, [debouncedUsername]);
+
+  useEffect(() => {
+    const checkEmailAvailability = async () => {
+      if (debouncedEmail) {
+        const emailAvailableRes = await checkEmailAvailable(debouncedEmail);
+        setEmailError(emailAvailableRes);
+      }
+    };
+
+    checkEmailAvailability();
+  }, [debouncedEmail]);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -60,8 +91,8 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
 
       if (!usernameAvailableRes && !emailAvailableRes) {
         const result = await addUser(data);
-        console.log("addser res", result);
-        //  toast({
+        console.log("addUser res", result);
+        // toast({
         //   title: "success",
         //   description: result?.data?.message,
         //   status: "success",
@@ -99,7 +130,7 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
         width={{ base: "full", md: "60%" }}
       >
         <VStack gap={10}>
-          {/* username  */}
+          {/* username (Hesab Adı) */}
           <FormControl {...registerFormControlStyle} isInvalid={usernameError}>
             <FormLabel {...registerLabelStyle}>Hesab adı</FormLabel>
             <Box w="65%">
@@ -117,7 +148,7 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             </Box>
           </FormControl>
 
-          {/* firstName  */}
+          {/* name (Adı) */}
           <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Adı</FormLabel>
             <Input
@@ -129,7 +160,8 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
               placeholder="Cemile"
             />
           </FormControl>
-          {/* password  */}
+
+          {/* password */}
           <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Parol</FormLabel>
             <InputGroup {...registerInputStyle}>
@@ -151,11 +183,9 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             </InputGroup>
           </FormControl>
 
-          {/* Email */}
+          {/* email */}
           <FormControl {...registerFormControlStyle} isInvalid={emailError}>
             <FormLabel {...registerLabelStyle}>Email</FormLabel>
-
-            {/* Group Input and ErrorMessage without changing Input size */}
             <Box w="65%">
               <Input
                 type="email"
@@ -165,17 +195,14 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
                 })}
                 {...registerInputStyle}
                 placeholder="cemile@gmail.com"
-                // No margin or padding changes to Input to keep its size consistent
               />
-
-              {/* Error message directly below without affecting input size */}
               {emailError && (
                 <FormErrorMessage>bu email artiq movcuddur</FormErrorMessage>
               )}
             </Box>
           </FormControl>
 
-          {/* gender  */}
+          {/* gender */}
           <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Cins</FormLabel>
             <Select {...register("gender")} {...registerInputStyle}>
@@ -185,19 +212,6 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             </Select>
           </FormControl>
 
-          {/* type  */}
-          {/* <FormControl {...registerFormControlStyle}>
-            <FormLabel {...registerLabelStyle}>Tip</FormLabel>
-            <Select {...register("type")} {...registerInputStyle}>
-              <option disabled>Seçin</option>
-              <option value="teacher">teacher</option>
-              <option value="student">student</option>
-              <option value="parent">parent</option>
-            </Select>
-          </FormControl> */}
-          {/* {registerFormTemplate.map((data) =>
-            transformFormData(data, register)
-          )} */}
           <ButtonGroup
             justifyContent="space-between"
             width="100%"
@@ -222,9 +236,6 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
             >
               İndi təsdiq et
             </Button>
-            {/* <Button colorScheme="teal" size="md" paddingInline="2.2rem">
-              Təsdiq etmədən davam et
-            </Button> */}
           </ButtonGroup>
         </VStack>
       </Box>
