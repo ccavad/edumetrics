@@ -2,12 +2,16 @@ import {
   Box,
   Button,
   Checkbox,
+  CheckboxGroup,
+  Flex,
   FormControl,
+  FormLabel,
   Heading,
   HStack,
   List,
   ListItem,
   Skeleton,
+  Stack,
   Textarea,
   Tooltip,
   VStack,
@@ -20,7 +24,7 @@ import {
   questionTypesList,
 } from "../../utils/statics/constants";
 import { useExamStore } from "../../store/useExamStore";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 const hardCodedExamId = 1;
 
@@ -54,14 +58,17 @@ export const QuestionRenderer = ({ question }) => {
 
   return (
     <Box>
-      <HStack align="center" mb={8}>
-        <Heading as="h5" fontSize="30px">
-          <RenderHTML htmlString={question?.questionText} />
-        </Heading>
-        <Tooltip label="quiz">
-          <Question size={40} />
-        </Tooltip>
-      </HStack>
+      {questionTypesList[question?.questionType] !== "open" && (
+        <HStack align="center" mb={8}>
+          <Heading as="h5" fontSize="30px">
+            <RenderHTML htmlString={question?.questionText} />
+          </Heading>
+          <Tooltip label="quiz">
+            <Question size={40} />
+          </Tooltip>
+        </HStack>
+      )}
+
       <QuestionBody question={question} />
       <FormControl display="flex" justifyContent="flex-end">
         <Checkbox
@@ -81,9 +88,15 @@ const QuestionBody = ({ question }) => {
     (state) => state.setExamAnswersByQuestion
   );
   const selectedQuestionAnswer = examAnswers["1"]?.[question?.questionId];
-  const { register, handleSubmit, setValue } = useForm({
+  // console.log("question", question);
+  const { register, handleSubmit, setValue, control } = useForm({
     defaultValues: {
       textAreaAnswer: selectedQuestionAnswer?.value,
+      matrissa: {
+        1: [],
+        2: [],
+        3: [],
+      },
     },
   });
 
@@ -141,6 +154,14 @@ const QuestionBody = ({ question }) => {
   ) {
     return (
       <VStack gap={5}>
+        {questionTypesList[question?.questionType] === "open" && (
+          <>
+            <RenderHTML htmlString={question?.questionHeaderText} />
+            <Heading as="h5" fontSize="30px">
+              <RenderHTML htmlString={question?.questionText} />
+            </Heading>
+          </>
+        )}
         <Textarea
           placeholder="cavabi yazin"
           maxH="300px"
@@ -164,6 +185,46 @@ const QuestionBody = ({ question }) => {
   }
 
   if (questionTypesList[question?.questionType] === "matrissa") {
-    return <Box>matrissa</Box>;
+    return (
+      <VStack gap={6}>
+        {[1, 2, 3].map((num) => (
+          <FormControl key={num} as={Flex} alignItems="center" gap={10}>
+            <FormLabel m="0">{num}</FormLabel>
+            <Controller
+              name={`matrissa.${num}`}
+              control={control}
+              render={({ field }) => (
+                <CheckboxGroup
+                  {...field}
+                  onChange={(val) => field.onChange(val)} // this ensures the value gets updated
+                  value={field.value || []}
+                >
+                  <Stack spacing={8} direction="row">
+                    <Checkbox value="a">a</Checkbox>
+                    <Checkbox value="b">b</Checkbox>
+                    <Checkbox value="c">c</Checkbox>
+                    <Checkbox value="d">d</Checkbox>
+                    <Checkbox value="e">e</Checkbox>
+                  </Stack>
+                </CheckboxGroup>
+              )}
+            />
+          </FormControl>
+        ))}
+        <Button
+          onClick={handleSubmit((data) => {
+            setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
+              value: data?.matrissa,
+              type:
+                selectedQuestionAnswer?.type === examAnswerTypes.marked
+                  ? examAnswerTypes.marked
+                  : examAnswerTypes.answered,
+            });
+          })}
+        >
+          Submit answer
+        </Button>
+      </VStack>
+    );
   }
 };
