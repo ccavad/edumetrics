@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import { AuthTitleSection } from "../../components/form/AuthTitleSection.jsx";
+import { AuthTitleSection } from "../../components/form/AuthTitleSection";
 import { textTemplates } from "../../utils/statics/templates";
 import { LoginForm } from "./LoginForm";
 
