@@ -101,7 +101,7 @@ const QuestionBody = ({ question }) => {
   });
 
   useEffect(() => {
-    setValue("textAreaAnswer", selectedQuestionAnswer.value);
+    setValue("textAreaAnswer", selectedQuestionAnswer?.value);
   }, [selectedQuestionAnswer, setValue]);
 
   if (questionTypesList[question?.questionType] === "closed") {
@@ -197,7 +197,7 @@ const QuestionBody = ({ question }) => {
                 <CheckboxGroup
                   {...field}
                   onChange={(val) => field.onChange(val)} // this ensures the value gets updated
-                  value={field.value || []}
+                  value={field?.value || []}
                 >
                   <Stack spacing={8} direction="row">
                     <Checkbox value="a">a</Checkbox>

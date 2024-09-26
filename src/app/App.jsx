@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // routes
 import { RootLayout } from "./RootLayout";
+import { PublicRoute } from "./PublicRoute";
+import { ProtectedRoutes } from "./ProtectedRoutes";
 const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
@@ -26,8 +28,6 @@ import { EDU_URL } from "../services/api/constants";
 
 import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
-import { PrivateRoute } from "./PrivateRoute";
-import { PublicRoute } from "./PublicRoute";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -45,65 +45,34 @@ function App() {
     initCompanyData();
   }, []);
 
-  const wrapWithSuspense = (element, type = "private") => {
-    return (
-      <Suspense fallback={<LoadingSpinner />}>
-        {/* {type === "private" ? (
-          <PrivateRoute>{element}</PrivateRoute>
-        ) : type === "public" ? (
-          <PublicRoute>{element}</PublicRoute>
-        ) : (
-          element
-        )} */}
-        {element}
-      </Suspense>
-    );
-  };
-
-  const isLoggedIn = null;
-
   return (
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <Routes>
           {initCompanyDataLoading && initTokenLoading ? (
-            <Route index element={<LoadingSpinner />} />
+            <Route path="/" element={<LoadingSpinner />} />
           ) : (
             <>
-              <Route path="/" element={<RootLayout />}>
-                <Route
-                  index
-                  element={wrapWithSuspense(<LazyHome />, "public")}
-                  exact
-                />
-                <Route
-                  path="/register"
-                  element={wrapWithSuspense(<LazyRegister />, "public")}
-                />
-                <Route path="/faq" element={wrapWithSuspense(<FaqPage />)} />
-                <Route
-                  path="/about"
-                  element={wrapWithSuspense(<LazyAbout />)}
-                />
+              <Route element={<RootLayout />}>
+                <Route element={<ProtectedRoutes />}>
+                  <Route index element={<LazyHome />} />
+                  <Route path="/about" element={<LazyAbout />} />
+                  <Route path="/faq" element={<FaqPage />} />
+                  <Route path="/exams" element={<ExamsPage />} />
+                  <Route path="/test/:id" element={<LazyTest />} />
 
-                <Route
-                  path="/exams"
-                  element={wrapWithSuspense(<ExamsPage />)}
-                />
-                <Route
-                  path="/login"
-                  element={wrapWithSuspense(<LazyLogin />, "public")}
-                />
-                <Route
-                  path="/test/:id"
-                  element={wrapWithSuspense(<LazyTest />)}
-                />
-                <Route
-                  path="*"
-                  element={wrapWithSuspense(<LazyHome />, "public")}
-                />
+                  <Route path="*" element={<LazyHome />} />
+                </Route>
+                <Route element={<PublicRoute />}>
+                  <Route path="/login" element={<LazyLogin />} />
+                  <Route path="/register" element={<LazyRegister />} />
+                </Route>
               </Route>
-              <Route path="/statistics" element={<Statistics />} />
+              <Route>
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="/statistics" element={<Statistics />} />
+                </Route>
+              </Route>
             </>
           )}
         </Routes>
