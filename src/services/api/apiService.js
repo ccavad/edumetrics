@@ -2,15 +2,12 @@ import axios from "axios";
 import { EDU_URL } from "./constants";
 import { languages } from "../../utils/statics/constants";
 import { useAuthStore } from "../../store/useAuthStore";
-import dayjs from "dayjs";
 
 const token = useAuthStore.getState().token;
 
-const axiosInstance = axios.create({
-  headers: {
-    Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
-  },
-});
+const axiosHeaders = {
+  Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
+};
 
 export const getCompanyData = async (lang = languages["aze"]) => {
   const url = EDU_URL + `/home/${lang}`;
@@ -63,29 +60,21 @@ export const getExams = async (body) => {
       endDate: "2024-09-18",
     },
     {
-      headers: {
-        Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
-      },
+      headers: axiosHeaders,
     }
   );
 };
 
 export const getExamDetail = async (id) => {
   const url = EDU_URL + `/getExamDetail/${id}`;
-  return axiosInstance(url);
-  // return axios(url, {
-  //   headers: {
-  //     Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
-  //   },
-  // });
+  return axios(url, {
+    headers: axiosHeaders,
+  });
 };
 
 export const getExamQuestions = async (id) => {
   const url = EDU_URL + `/getExamQuestions/${id}`;
-  return axiosInstance(url);
-  // return axios(url, {
-  //   headers: {
-  //     Token: JSON.parse(localStorage.getItem("notSafeAuthToken")) || token,
-  //   },
-  // });
+  return axios.get(url, {
+    headers: axiosHeaders,
+  });
 };
