@@ -5,12 +5,7 @@ import Azlang from "../../assets/images/azlang.png";
 import Math2 from "../../assets/images/math2.png";
 import Math from "../../assets/images/math.png";
 import ExamSubjectCard from "../Home/ExamSubjectCard";
-import {
-  getExams,
-  getExamTypes,
-  getTopics,
-  getTopTopics,
-} from "../../services/api/apiService";
+import { getExams, getTopTopics } from "../../services/api/apiService";
 import { useNavigate } from "react-router";
 
 const examSubjects = [
@@ -49,7 +44,7 @@ export default function ExamsPage() {
   const initTopTopics = async () => {
     try {
       const result = await getTopTopics();
-      console.log("getTopTopics", result);
+      // console.log("getTopTopics", result);
       if (result.data) {
         setTopTopics(result.data);
       }
@@ -66,10 +61,12 @@ export default function ExamsPage() {
           top="0"
           left="0"
           width="100%"
-          height="70vh"
+          height="45vh"
           backgroundImage={`url(${ExamsBackground})`}
           backgroundSize="cover"
-          backgroundPosition="center"
+          // backgroundSize="contain"
+          // backgroundPosition="center"
+          // backgroundRepeat="no-repeat"
           zIndex="-1"
         />
 

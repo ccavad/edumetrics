@@ -14,7 +14,7 @@ export const Header = () => {
       setLanguage: state.setLanguage,
     }))
   );
-  
+
   const location = useLocation();
   const pagePath = location.pathname;
   const DarkBgPages = ["/faq", "/exams"]; // Replace with your actual paths
@@ -22,10 +22,12 @@ export const Header = () => {
 
   const selectStyles = {
     borderRadius: "10px",
-    borderColor: isDarkBgPages ? "#f0f0f0" : "#f0f0f0",
-    backgroundColor: isDarkBgPages ? "#ffffff" : "#ffffff",
-    color: isDarkBgPages ? "#1a1a1a" : "#1a1a1a",
+    borderColor: "#f0f0f0",
+    backgroundColor: "white",
+    color: "#1a1a1a",
   };
+
+  const whiteFilter = "invert(1) brightness(10000%) saturate(100%)";
 
   return (
     <Container
@@ -43,7 +45,7 @@ export const Header = () => {
           src={EDU_URL + "/logo"}
           height={{ base: "40px", sm: "60px" }}
           ml={{ base: "1rem", md: "4rem" }}
-          filter={isDarkBgPages ? "invert(1) brightness(10000%) saturate(100%)" : "none"}
+          filter={isDarkBgPages ? whiteFilter : "none"}
         />
       </NavLink>
 

@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // routes
 import { RootLayout } from "./RootLayout";
+import { SuspenseRoute } from "./SuspenseRoute";
 import { PublicRoute } from "./PublicRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
 const LazyHome = lazy(() => import("./../pages/Home/Home"));
@@ -11,9 +12,12 @@ const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
 const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
 const LazyAbout = lazy(() => import("../pages/About/About"));
-import FaqPage from "../pages/FAQ/FaqPage";
-import ExamsPage from "../pages/Exams/ExamsPage";
-import { Statistics } from "../pages/Statistics/StatisticsLayout";
+const LazyFaqPage = lazy(() => import("../pages/FAQ/FaqPage"));
+const LazyExamsPage = lazy(() => import("../pages/Exams/ExamsPage"));
+const LazyStatistics = lazy(() =>
+  import("../pages/Statistics/StatisticsLayout")
+);
+import { LoadingSpinner } from "../components/layout/LoadingSpinner";
 
 // styling
 import "../assets/styles/App.css";
@@ -22,12 +26,11 @@ import theme from "./../assets/theme/theme";
 import { useDocumentTitle } from "usehooks-ts";
 import useFavicon from "../utils/hooks/useFavicon";
 import { useCompanyStore } from "../store/useCompanyStore";
-// misc
-import { LoadingSpinner } from "../components/layout/LoadingSpinner";
-import { EDU_URL } from "../services/api/constants";
-
-import { textTemplates } from "./../utils/statics/templates";
 import { useAuthStore } from "../store/useAuthStore";
+
+// misc
+import { EDU_URL } from "../services/api/constants";
+import { textTemplates } from "./../utils/statics/templates";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -54,23 +57,27 @@ function App() {
           ) : (
             <>
               <Route element={<RootLayout />}>
-                <Route element={<ProtectedRoutes />}>
+                <Route element={<SuspenseRoute />}>
                   <Route index element={<LazyHome />} />
                   <Route path="/about" element={<LazyAbout />} />
-                  <Route path="/faq" element={<FaqPage />} />
-                  <Route path="/exams" element={<ExamsPage />} />
-                  <Route path="/test/:id" element={<LazyTest />} />
-
+                  <Route path="/faq" element={<LazyFaqPage />} />
                   <Route path="*" element={<LazyHome />} />
                 </Route>
+                {/* protected only routes  */}
+                <Route element={<ProtectedRoutes />}>
+                  <Route path="/exams" element={<LazyExamsPage />} />
+                  <Route path="/test/:id" element={<LazyTest />} />
+                </Route>
+                {/* public only routes  */}
                 <Route element={<PublicRoute />}>
                   <Route path="/login" element={<LazyLogin />} />
                   <Route path="/register" element={<LazyRegister />} />
                 </Route>
               </Route>
               <Route>
+                {/* other routes which has different layout  */}
                 <Route element={<ProtectedRoutes />}>
-                  <Route path="/statistics" element={<Statistics />} />
+                  <Route path="/statistics" element={<LazyStatistics />} />
                 </Route>
               </Route>
             </>

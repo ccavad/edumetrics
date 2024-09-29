@@ -11,23 +11,39 @@ export const StatisticsAverage = () => {
   const circleHeight = 300; // Increase height further
 
   return (
-    <Flex direction="column" minHeight="300px" backgroundColor="#DBEFFA" px={100}>
-      <Flex justify="space-between" align="center">
-        {/* First item */}
-        <Box textAlign="center" mt="-20px">
-          <Text fontSize="lg" fontWeight="bold">
-            24/25 sual
-          </Text>
-          <Text>Cavablandırılmamış</Text>
-        </Box>
-        {/* Second item */}
-        <Box textAlign="center" mt="-20px">
-          <Text fontSize="lg" fontWeight="bold">
-            1 sual
-          </Text>
-          <Text>Cavablandırılmamış</Text>
-        </Box>
-        <Box>
+    <Flex
+      direction="column"
+      backgroundColor="#DBEFFA"
+      px={{ base: 5, sm: 10, md: 20, xl: 100 }}
+    >
+      <Flex
+        justify="space-between"
+        align="center"
+        direction={{ base: "column", md: "row" }}
+        gap={10}
+      >
+        <Flex
+          gap={5}
+          direction={{ base: "column", lg: "row" }}
+          mt={{ base: "-100px", md: 0 }}
+        >
+          {/* First item */}
+          <Box textAlign="center" mt="-20px">
+            <Text fontSize="lg" fontWeight="bold">
+              24/25 sual
+            </Text>
+            <Text>Cavablandırılmamış</Text>
+          </Box>
+          {/* Second item */}
+          <Box textAlign="center" mt="-20px">
+            <Text fontSize="lg" fontWeight="bold">
+              1 sual
+            </Text>
+            <Text>Cavablandırılmamış</Text>
+          </Box>
+        </Flex>
+        {/* chart  */}
+        <Box order={{ base: -1, md: 0 }}>
           <RadialBarChart
             width={circleWidth}
             height={circleHeight}
@@ -61,29 +77,37 @@ export const StatisticsAverage = () => {
               className="progress-label"
               fontSize="48" // Increase font size if needed
             >
-              {data[0].value}%
+              {data[0]?.value || 0}%
             </text>
           </RadialBarChart>
         </Box>
-        {/* Third item */}
-        <Box textAlign="center" mt="-20px">
-          <Text fontSize="lg" fontWeight="bold">
-            24 sual
-          </Text>
-          <Text>Cavablandırılmış</Text>
-        </Box>
-        {/* Fourth item */}
-        <Box textAlign="center" mt="-20px">
-          <Text fontSize="lg" fontWeight="bold">
-            35.ci yer
-          </Text>
-          <Text>Qiymətləndirmə cədvəlində</Text>
-        </Box>
+        <Flex gap={5} direction={{ base: "column", lg: "row" }}>
+          {/* Third item */}
+          <Box textAlign="center" mt="-20px">
+            <Text fontSize="lg" fontWeight="bold">
+              24 sual
+            </Text>
+            <Text>Cavablandırılmış</Text>
+          </Box>
+          {/* Fourth item */}
+          <Box textAlign="center" mt="-20px">
+            <Text fontSize="lg" fontWeight="bold">
+              35.ci yer
+            </Text>
+            <Text>Qiymətləndirmə cədvəlində</Text>
+          </Box>
+        </Flex>
       </Flex>
       {/* New Flex container for the last block */}
-      <Flex justify="center" align="center" mt="-100px" gap={2}>
+      <Flex
+        justify="center"
+        align="center"
+        gap={2}
+        mb="2rem"
+        mt={{ base: "2rem", md: "-3rem" }}
+      >
         <Image src={Average} alt="Average" />
-        <Text ml={2} fontSize="3xl" fontWeight="bold">
+        <Text ml={2} fontSize="2xl" fontWeight="bold" textAlign="center">
           Orta statistik göstərici {data[0].value}%{" "}
         </Text>
       </Flex>

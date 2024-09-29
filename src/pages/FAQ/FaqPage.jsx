@@ -74,7 +74,6 @@ export default function FaqPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
 
@@ -91,7 +90,7 @@ export default function FaqPage() {
           top="0"
           left="0"
           width="100%"
-          height="70vh"
+          height="55vh"
           backgroundImage={`url(${FaqBackground})`}
           backgroundSize="cover"
           backgroundPosition="center"

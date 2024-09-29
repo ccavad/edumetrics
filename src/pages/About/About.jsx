@@ -1,4 +1,5 @@
 import HeaderSection from "./AboutHeader";
+import { ContactUs } from "./ContactUs";
 import Exam from "./Exam";
 import MissionSection from "./MissionSection";
 import ServiceSection from "./ServiceSection";
@@ -9,6 +10,7 @@ const About = () => (
     <ServiceSection />
     <MissionSection />
     <Exam />
+    <ContactUs />
   </>
 );
 

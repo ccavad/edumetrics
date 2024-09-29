@@ -27,7 +27,7 @@ const TestExam = () => {
 
     if (res?.data) {
       setQuestions(res?.data);
-      console.log("questions", res?.data);
+      // console.log("questions", res?.data);
 
       // Check localStorage for existing exam answers
       const savedExamAnswers = JSON.parse(localStorage.getItem("examAnswers"));

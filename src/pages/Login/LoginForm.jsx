@@ -25,14 +25,9 @@ import {
   registerInputStyle,
   registerLabelStyle,
 } from "../../assets/styles/chakraStyles";
-import { checkUsername } from "../../services/api/apiService";
-import { useDebounced } from "../../utils/hooks/useDebounced";
-import { useEffect } from "react";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [isUsernameValid, setIsUsernameValid] = useState(true);
-  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -49,43 +44,7 @@ export const LoginForm = () => {
     token
   );
 
-  // Debounce the username value to prevent excessive API calls
-  const debouncedUsername = useDebounced(watch("username"), 500);
-
-  useEffect(() => {
-    if (!debouncedUsername) {
-      // If the username input is empty, reset the validation state
-      setIsUsernameValid(true); // null means no validation state, so hide the message
-      setLoading(false);
-      return; // Exit early if input is empty
-    }
-
-    setLoading(true);
-    checkUsername(debouncedUsername)
-      .then((response) => {
-        console.log("API Response:", response.data); // Logs the API response
-        const exists = response.data; // Since response.data is the boolean
-        setIsUsernameValid(exists); // Use this directly to set the validity
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Username check error:", error);
-        setIsUsernameValid(false); // Set to false if there's an error
-        setLoading(false);
-      });
-  }, [debouncedUsername]);
-
   const onSubmit = async (data) => {
-    if (!isUsernameValid) {
-      toast({
-        title: "Error",
-        description: "Username doesn't exist.",
-        status: "error",
-        position: "bottom-right",
-      });
-      return;
-    }
-
     try {
       const result = await accessToken(data);
       if (result?.data?.answer) {
@@ -97,9 +56,12 @@ export const LoginForm = () => {
         });
         setToken(result?.data?.token);
         setLocalToken(result?.data?.token);
-        setTimeout(() => {
-          navigate("/");
-        }, 1500);
+
+        if (result?.data?.token) {
+          setTimeout(() => {
+            navigate("/");
+          }, 1500);
+        }
       } else {
         toast({
           title: "error",
@@ -122,10 +84,7 @@ export const LoginForm = () => {
       >
         <VStack gap={10}>
           {/* username  */}
-          <FormControl
-            isInvalid={!isUsernameValid}
-            {...registerFormControlStyle}
-          >
+          <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Hesab adı</FormLabel>
             <Box w="65%">
               <Input
@@ -136,10 +95,6 @@ export const LoginForm = () => {
                 {...registerInputStyle}
                 placeholder="Enter username"
               />
-              {debouncedUsername && isUsernameValid === false && (
-                <Text color="red.500">Username doesn't exist.</Text>
-              )}
-              {loading && <Text>Checking username...</Text>}
             </Box>
           </FormControl>
 
