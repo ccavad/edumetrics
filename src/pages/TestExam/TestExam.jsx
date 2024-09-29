@@ -11,6 +11,7 @@ import { useExamStore } from "../../store/useExamStore";
 const TestExam = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionId, setCurrentQuestionId] = useState(1);
+  const [loading, setLoading] = useState(false);
   const setExamAnswers = useExamStore((state) => state.setExamAnswers);
 
   const location = useLocation();
@@ -23,31 +24,34 @@ const TestExam = () => {
   }, []);
 
   const initData = async () => {
-    const res = await getExamQuestions(examSubjectId);
+    try {
+      setLoading(true);
+      const res = await getExamQuestions(examSubjectId);
+      setLoading(false);
 
-    if (res?.data) {
-      setQuestions(res?.data);
-      // console.log("questions", res?.data);
+      if (res?.data) {
+        setQuestions(res?.data);
+        // console.log("questions", res?.data);
 
-      // Check localStorage for existing exam answers
-      const savedExamAnswers = JSON.parse(localStorage.getItem("examAnswers"));
-      if (!savedExamAnswers || !savedExamAnswers[examSubjectId]) {
-        // Initialize default answers with type "missed"
-        const newExamAnswers = res?.data.reduce((acc, question) => {
-          acc[question.questionId] = { value: "", type: "missed" };
-          return acc;
-        }, {});
+        // Check localStorage for existing exam answers
+        const savedExamAnswers = JSON.parse(
+          localStorage.getItem("examAnswers")
+        );
+        if (!savedExamAnswers || !savedExamAnswers[examSubjectId]) {
+          // Initialize default answers with type "missed"
+          const newExamAnswers = res?.data.reduce((acc, question) => {
+            acc[question.questionId] = { value: "", type: "missed" };
+            return acc;
+          }, {});
 
-        // Update Zustand and localStorage
-        setExamAnswers(examSubjectId, newExamAnswers);
-        // localStorage.setItem(
-        //   "examAnswers",
-        //   JSON.stringify({
-        //     ...savedExamAnswers,
-        //     [examSubjectId]: newExamAnswers,
-        //   })
-        // );
+          // Update Zustand and localStorage
+          setExamAnswers(examSubjectId, newExamAnswers);
+        }
       }
+    } catch (error) {
+      setLoading(false);
+
+      console.error("getExamQuestions error: ", error);
     }
   };
   return (
@@ -58,7 +62,10 @@ const TestExam = () => {
         currentQuestion={currentQuestionId}
         setCurrentQuestion={setCurrentQuestionId}
       />
-      <QuestionRenderer question={questions[currentQuestionId - 1]} />
+      <QuestionRenderer
+        question={questions[currentQuestionId - 1]}
+        loading={loading}
+      />
       <HStack>
         <Button
           // variant="ghost"

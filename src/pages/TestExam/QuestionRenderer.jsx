@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Box,
   Button,
   Checkbox,
@@ -28,7 +32,7 @@ import { Controller, useForm } from "react-hook-form";
 
 const hardCodedExamId = 1;
 
-export const QuestionRenderer = ({ question }) => {
+export const QuestionRenderer = ({ question, loading }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
   const setExamAnswerType = useExamStore((state) => state.setExamAnswerType);
   const selectedQuizAnswer =
@@ -46,13 +50,23 @@ export const QuestionRenderer = ({ question }) => {
     setExamAnswerType(hardCodedExamId, question?.questionId, newType);
   };
 
-  if (!question) {
+  if (loading) {
     return (
       <VStack w="full">
         <Skeleton height="30px" w="full" />
         <Skeleton height="30px" w="full" />
         <Skeleton height="30px" w="full" />
       </VStack>
+    );
+  }
+
+  if (!question) {
+    return (
+      <Alert status="error" w="max-content">
+        <AlertIcon />
+        <AlertTitle>Xeta</AlertTitle>
+        <AlertDescription>Sual tapilmadi!</AlertDescription>
+      </Alert>
     );
   }
 
