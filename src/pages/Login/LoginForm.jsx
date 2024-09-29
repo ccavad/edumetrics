@@ -99,7 +99,6 @@ export const LoginForm = () => {
           </FormControl>
 
           {/* password  */}
-          <p>mamedZoroOne</p>
           <FormControl {...registerFormControlStyle}>
             <FormLabel {...registerLabelStyle}>Parol</FormLabel>
             <InputGroup {...registerInputStyle}>
