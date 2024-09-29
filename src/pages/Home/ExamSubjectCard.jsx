@@ -1,6 +1,39 @@
 import { Flex, Box, Heading, Text, Image } from "@chakra-ui/react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { RenderHTML } from "./../../components/common/RenderHTML";
+import { EDU_URL } from "../../services/api/constants";
 
-const ExamSubjectCard = ({ title, description, imageSrc, borderColor }) => {
+const ExamSubjectCard = ({
+  title,
+  description,
+  imageSrc,
+  borderColor,
+  onClick,
+}) => {
+  const [svgMarkup, setSvgMarkup] = useState("");
+
+  useEffect(() => {
+    initSrc();
+  }, []);
+
+  const initSrc = async () => {
+    try {
+      const url = EDU_URL + imageSrc;
+      const res = await axios(url);
+      if (res.data) {
+        setSvgMarkup(
+          res.data
+            .replace(/<svg/, '<svg width="50" height="50"')
+            .replace(/width="[^"]*"/, 'width="50"')
+            .replace(/height="[^"]*"/, 'height="50"')
+        );
+      }
+    } catch (error) {
+      console.error("initSrc error: ", error);
+    }
+  };
+
   return (
     <Box
       bg="transparent"
@@ -16,9 +49,11 @@ const ExamSubjectCard = ({ title, description, imageSrc, borderColor }) => {
         outline: `3px solid ${borderColor}`,
         transform: "scale(1.02)",
       }}
+      onClick={onClick}
     >
       <Flex justifyContent="center" gap={4} alignItems="center">
-        <Image src={imageSrc} alt={title} />
+        {/* <Image src={EDU_URL + imageSrc} alt={title} /> */}
+        <RenderHTML htmlString={svgMarkup} />
         <Box>
           <Heading as="h5" size="md">
             {title}

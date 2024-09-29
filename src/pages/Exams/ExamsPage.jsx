@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Stack, Text, Flex } from "@chakra-ui/react";
 import ExamsBackground from "../../assets/images/examsBackground.png";
 import Azlang from "../../assets/images/azlang.png";
 import Math2 from "../../assets/images/math2.png";
 import Math from "../../assets/images/math.png";
 import ExamSubjectCard from "../Home/ExamSubjectCard";
+import {
+  getExams,
+  getExamTypes,
+  getTopics,
+  getTopTopics,
+} from "../../services/api/apiService";
+import { useNavigate } from "react-router";
 
 const examSubjects = [
   {
@@ -31,6 +38,26 @@ const examSubjects = [
 ];
 
 export default function ExamsPage() {
+  const [topTopics, setTopTopics] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    initTopTopics();
+    getExams();
+  }, []);
+
+  const initTopTopics = async () => {
+    try {
+      const result = await getTopTopics();
+      console.log("getTopTopics", result);
+      if (result.data) {
+        setTopTopics(result.data);
+      }
+    } catch (error) {
+      console.error("getTopTopics error", error);
+    }
+  };
+
   return (
     <>
       <Stack mb="200px">
@@ -66,13 +93,18 @@ export default function ExamsPage() {
         alignItems="center"
         mb="200px"
       >
-        {examSubjects.map((subject, index) => (
+        {topTopics.map((topic, index) => (
           <ExamSubjectCard
             key={index}
-            title={subject.title}
-            description={subject.description}
-            imageSrc={subject.imageSrc}
-            borderColor={subject.borderColor}
+            title={topic?.subject}
+            description={topic?.subject}
+            imageSrc={topic?.iconUrl}
+            borderColor={examSubjects[index]?.borderColor}
+            onClick={() =>
+              navigate(`/test/${index}`, {
+                state: { subject: topic?.subject },
+              })
+            }
           />
         ))}
       </Flex>

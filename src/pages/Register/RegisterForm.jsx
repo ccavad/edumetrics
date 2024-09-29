@@ -44,8 +44,6 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
     },
   });
 
-  console.log("registeredUserType", registeredUserType);
-
   const onSubmit = async (data) => {
     console.log(data);
     try {
