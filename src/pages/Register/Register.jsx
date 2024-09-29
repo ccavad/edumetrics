@@ -12,7 +12,7 @@ import { useState } from "react";
 // components
 import { RegisterTitle } from "./RegisterTitle";
 import { RegisterForm } from "./RegisterForm";
-import { AuthTitleSection } from "../../components/form/authTitleSection";
+import { AuthTitleSection } from "../../components/form/AuthTitleSection";
 
 // icons
 import studentIcon from "../../assets/images/student.svg";
