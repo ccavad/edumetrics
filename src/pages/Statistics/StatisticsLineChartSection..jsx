@@ -57,7 +57,13 @@ export const StatisticsLineChartSection = () => {
 
   return (
     <>
-      <Flex width="100%" gap={20} padding={10} justifyContent="center" alignItems="center">
+      <Flex
+        width="100%"
+        gap={20}
+        justifyContent="center"
+        alignItems="center"
+        direction={{ base: "column", break1100: "row" }}
+      >
         {/* Left Section */}
         <Flex direction="column" flex="3" p={5}>
           <Flex align="center" gap={4} mb={5} alignSelf="flex-end">
@@ -66,7 +72,7 @@ export const StatisticsLineChartSection = () => {
               color="#292929"
               p={5}
               borderRadius="md"
-              width="250px"
+              width={{ base: "100%", sm: "230px" }}
               textAlign="center"
               position="relative"
             >
@@ -89,7 +95,7 @@ export const StatisticsLineChartSection = () => {
               color="#292929"
               p={5}
               borderRadius="md"
-              width="250px"
+              width={{ base: "100%", sm: "230px" }}
               textAlign="center"
               position="relative"
             >
@@ -137,12 +143,11 @@ export const StatisticsLineChartSection = () => {
         {/* Right Section */}
         <Box
           flex="2"
-         
           p={5}
           border="2px solid orange"
           borderRadius={10}
           maxWidth={600}
-         height="350px"
+          height="350px"
           display="flex" // Ensure Box is also a flex container
           justifyContent="center" // Centers horizontally
           alignItems="center" // Centers vertically

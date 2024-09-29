@@ -4,7 +4,14 @@ import React from "react";
 export const StatisticsHeader = () => {
   return (
     <>
-      <Flex as="header" justify="space-between" align="center" bg="#B6DFF5" minHeight="50px" px={100}>
+      <Flex
+        as="header"
+        justify="space-between"
+        align="center"
+        bg="#B6DFF5"
+        minHeight="50px"
+        px={{ base: 5, sm: 10, md: 100 }}
+      >
         {/* Logo */}
         <Box>
           <Text fontSize="xl" fontWeight="bold">

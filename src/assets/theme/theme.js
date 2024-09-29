@@ -21,7 +21,7 @@ const theme = extendTheme({
   },
   colors: themeColors,
   breakpoints: {
-    break1000: "1000px",
+    break1100: "1100px",
   },
 });
 

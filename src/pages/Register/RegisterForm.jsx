@@ -34,7 +34,7 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const [usernameError, setUsernameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const toast = useToast();
-  
+
   const {
     register,
     handleSubmit,
@@ -56,7 +56,9 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   useEffect(() => {
     const checkUsernameAvailability = async () => {
       if (debouncedUsername) {
-        const usernameAvailableRes = await checkUsernameAvailable(debouncedUsername);
+        const usernameAvailableRes = await checkUsernameAvailable(
+          debouncedUsername
+        );
         setUsernameError(usernameAvailableRes);
       }
     };
@@ -76,7 +78,7 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   }, [debouncedEmail]);
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     try {
       const usernameAvailableRes = await checkUsernameAvailable(data.username);
       const emailAvailableRes = await checkEmailAvailable(data.email);

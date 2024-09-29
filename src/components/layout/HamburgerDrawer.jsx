@@ -11,18 +11,27 @@ import {
   DrawerCloseButton,
   UnorderedList,
   ListItem,
+  Text,
 } from "@chakra-ui/react";
-import { List } from "@phosphor-icons/react";
+import {
+  ChartLine,
+  Exam,
+  House,
+  Info,
+  List,
+  Question,
+  SignIn,
+} from "@phosphor-icons/react";
 import { NavLink } from "react-router-dom";
 
 const sidebarMenuList = [
-  { title: "Home", path: "/" },
-  { title: "About", path: "/about" },
-  { title: "Login", path: "/login" },
-  { title: "Register", path: "/register" },
-  { title: "Faq", path: "/faq" },
-  { title: "Exams", path: "/exams" },
-  { title: "Statistics", path: "/statistics" },
+  { title: "Home", path: "/", icon: <House size={32} /> },
+  { title: "About", path: "/about", icon: <Info size={32} /> },
+  { title: "Login", path: "/login", icon: <SignIn size={32} /> },
+  { title: "Register", path: "/register", icon: <SignIn size={32} /> },
+  { title: "Faq", path: "/faq", icon: <Question size={32} /> },
+  { title: "Exams", path: "/exams", icon: <Exam size={32} /> },
+  { title: "Statistics", path: "/statistics", icon: <ChartLine size={32} /> },
 ];
 
 export const HamburgerDrawer = ({ isDarkBgPages }) => {
@@ -47,7 +56,8 @@ export const HamburgerDrawer = ({ isDarkBgPages }) => {
         padding={0}
         sx={buttonStyles} // Apply conditional styles
       >
-        <List size={32} color={buttonStyles.color} /> {/* Ensure icon color matches button text */}
+        <List size={32} color={buttonStyles.color} />{" "}
+        {/* Ensure icon color matches button text */}
       </Button>
       <Drawer
         isOpen={isOpen}
@@ -56,15 +66,29 @@ export const HamburgerDrawer = ({ isDarkBgPages }) => {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay />
-        <DrawerContent>
+        <DrawerContent bg="dark" color="white">
           <DrawerCloseButton />
-          <DrawerHeader>Menu</DrawerHeader>
+          <DrawerHeader></DrawerHeader>
 
           <DrawerBody>
-            <UnorderedList styleType="none">
+            <UnorderedList
+              styleType="none"
+              display="flex"
+              flexDirection="column"
+              gap={6}
+            >
               {sidebarMenuList.map((menu, ind) => (
-                <ListItem key={ind}>
-                  <NavLink to={menu.path}>{menu.title}</NavLink>
+                <ListItem key={ind} display="flex" alignItems="center" gap={5}>
+                  {menu?.icon}
+                  <NavLink to={menu.path}>
+                    <Text
+                      fontSize={24}
+                      transition=".4s"
+                      _hover={{ textShadow: "2px 2px #ffffff40" }}
+                    >
+                      {menu.title}
+                    </Text>
+                  </NavLink>
                 </ListItem>
               ))}
             </UnorderedList>

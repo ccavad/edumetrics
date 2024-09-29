@@ -1,18 +1,12 @@
-import React, { Suspense } from "react";
-import { Navigate, Outlet } from "react-router";
+import React from "react";
+import { Navigate } from "react-router";
 import { useAuthStore } from "../store/useAuthStore";
-import { LoadingSpinner } from "../components/layout/LoadingSpinner";
+import { SuspenseRoute } from "./SuspenseRoute";
 
 export const PublicRoute = () => {
   const token =
     useAuthStore((state) => state.token) ||
     localStorage.getItem("notSafeAuthToken");
 
-  return token ? (
-    <Navigate to="/" />
-  ) : (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Outlet />
-    </Suspense>
-  );
+  return token ? <Navigate to="/" /> : <SuspenseRoute />;
 };
