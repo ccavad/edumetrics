@@ -32,11 +32,10 @@ import { Controller, useForm } from "react-hook-form";
 
 const hardCodedExamId = 1;
 
-export const QuestionRenderer = ({ question, loading }) => {
+export const QuestionRenderer = ({ question, loading, examSubjectId }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
   const setExamAnswerType = useExamStore((state) => state.setExamAnswerType);
-  const selectedQuizAnswer =
-    examAnswers[hardCodedExamId]?.[question?.questionId];
+  const selectedQuizAnswer = examAnswers[examSubjectId]?.[question?.questionId];
 
   const handleCheckboxChange = (e) => {
     const isChecked = e.target.checked;
@@ -47,7 +46,7 @@ export const QuestionRenderer = ({ question, loading }) => {
       ? "answered"
       : "missed";
 
-    setExamAnswerType(hardCodedExamId, question?.questionId, newType);
+    setExamAnswerType(examSubjectId, question?.questionId, newType);
   };
 
   if (loading) {
