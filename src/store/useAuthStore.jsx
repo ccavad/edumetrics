@@ -19,4 +19,8 @@ export const useAuthStore = create((set) => ({
       set({ initTokenLoading: false });
     }
   },
+  removeToken: () => {
+    set({ token: null });
+    localStorage.removeItem("notSafeAuthToken");
+  },
 }));

@@ -61,10 +61,12 @@ const TestExam = () => {
         questionList={questions}
         currentQuestion={currentQuestionId}
         setCurrentQuestion={setCurrentQuestionId}
+        examSubjectId={examSubjectId}
       />
       <QuestionRenderer
         question={questions[currentQuestionId - 1]}
         loading={loading}
+        examSubjectId={examSubjectId}
       />
       <HStack>
         <Button

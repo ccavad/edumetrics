@@ -1,4 +1,15 @@
-import { Container, Image, Select, Spacer } from "@chakra-ui/react";
+import {
+  Container,
+  Image,
+  Select,
+  Spacer,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Button,
+  Box,
+} from "@chakra-ui/react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
 
@@ -6,6 +17,8 @@ import { HamburgerDrawer } from "./HamburgerDrawer";
 import { useCompanyStore } from "../../store/useCompanyStore";
 import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
+import { useAuthStore } from "../../store/useAuthStore";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 export const Header = () => {
   const { companyData, setLanguage } = useCompanyStore(
@@ -14,11 +27,13 @@ export const Header = () => {
       setLanguage: state.setLanguage,
     }))
   );
+  const token = useAuthStore((state) => state.token);
+  const removeToken = useAuthStore((state) => state.removeToken);
 
   const location = useLocation();
   const pagePath = location.pathname;
-  const DarkBgPages = ["/faq", "/exams"]; // Replace with your actual paths
-  const isDarkBgPages = DarkBgPages.includes(pagePath);
+  const darkBgPages = ["/faq", "/exams"]; // Replace with your actual paths
+  const isDarkBgPages = darkBgPages.includes(pagePath);
 
   const selectStyles = {
     borderRadius: "10px",
@@ -50,9 +65,25 @@ export const Header = () => {
       </NavLink>
 
       <Spacer />
+      {token && (
+        <Box mr="3rem">
+          <Menu placement="bottom-end">
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              variant="outline"
+            >
+              Profile
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={removeToken}>Log out</MenuItem>
+            </MenuList>
+          </Menu>
+        </Box>
+      )}
       <Select
         w="84px"
-        onChange={(e) => setLanguage(e.target.value.toLowerCase())}
+        onChange={(e) => setLanguage(e.target.value?.toLowerCase())}
         sx={selectStyles}
       >
         {!isEmptyObject(companyData) &&

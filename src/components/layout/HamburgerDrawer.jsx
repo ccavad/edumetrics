@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import {
   ChartLine,
+  CreditCard,
   Exam,
   House,
   Info,
@@ -31,6 +32,7 @@ const sidebarMenuList = [
   { title: "Register", path: "/register", icon: <SignIn size={32} /> },
   { title: "Faq", path: "/faq", icon: <Question size={32} /> },
   { title: "Exams", path: "/exams", icon: <Exam size={32} /> },
+  { title: "Payment", path: "/payment", icon: <CreditCard size={32} /> },
   { title: "Statistics", path: "/statistics", icon: <ChartLine size={32} /> },
 ];
 

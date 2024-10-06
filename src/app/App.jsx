@@ -14,6 +14,7 @@ const LazyTest = lazy(() => import("./../pages/TestExam/TestExam"));
 const LazyAbout = lazy(() => import("../pages/About/About"));
 const LazyFaqPage = lazy(() => import("../pages/FAQ/FaqPage"));
 const LazyExamsPage = lazy(() => import("../pages/Exams/ExamsPage"));
+const LazyPaymentPage = lazy(() => import("../pages/Payment/PaymentPage"));
 const LazyStatistics = lazy(() =>
   import("../pages/Statistics/StatisticsLayout")
 );
@@ -23,14 +24,14 @@ import { LoadingSpinner } from "../components/layout/LoadingSpinner";
 import "../assets/styles/App.css";
 import theme from "./../assets/theme/theme";
 // hooks
-import { useDocumentTitle } from "usehooks-ts";
-import useFavicon from "../utils/hooks/useFavicon";
 import { useCompanyStore } from "../store/useCompanyStore";
 import { useAuthStore } from "../store/useAuthStore";
+import { useFavicon, useTitle } from "ahooks";
 
 // misc
 import { EDU_URL } from "../services/api/constants";
 import { textTemplates } from "./../utils/statics/templates";
+import PaymentPage from "../pages/Payment/PaymentPage";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);
@@ -41,7 +42,7 @@ function App() {
   const initTokenLoading = useAuthStore((state) => state.initTokenLoading);
 
   useFavicon(EDU_URL + "/logo");
-  useDocumentTitle(textTemplates.documentTitle);
+  useTitle(textTemplates.documentTitle);
 
   useEffect(() => {
     initToken();
@@ -66,6 +67,7 @@ function App() {
                 {/* protected only routes  */}
                 <Route element={<ProtectedRoutes />}>
                   <Route path="/exams" element={<LazyExamsPage />} />
+                  <Route path="/payment" element={<LazyPaymentPage />} />
                   <Route path="/test/:id" element={<LazyTest />} />
                 </Route>
                 {/* public only routes  */}

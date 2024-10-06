@@ -27,7 +27,7 @@ import {
   registerLabelStyle,
 } from "../../assets/styles/chakraStyles";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
-import { useDebounced } from "../../utils/hooks/useDebounced";
+import { useDebounce } from "ahooks";
 
 export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -50,8 +50,12 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const watchEmail = watch("email");
 
   // Apply debounce to username and email
-  const debouncedUsername = useDebounced(watchUsername, 500);
-  const debouncedEmail = useDebounced(watchEmail, 500);
+  const debouncedUsername = useDebounce(watchUsername, {
+    wait: 500,
+  });
+  const debouncedEmail = useDebounce(watchEmail, {
+    wait: 500,
+  });
 
   useEffect(() => {
     const checkUsernameAvailability = async () => {
@@ -73,9 +77,15 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
         setEmailError(emailAvailableRes);
       }
     };
-
     checkEmailAvailability();
   }, [debouncedEmail]);
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+  };
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -130,6 +140,7 @@ export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
         as="form"
         onSubmit={handleSubmit(onSubmit)}
         width={{ base: "full", md: "60%" }}
+        onKeyDown={handleKeyDown}
       >
         <VStack gap={10}>
           {/* username (Hesab Adı) */}

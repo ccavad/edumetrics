@@ -22,10 +22,9 @@ const navigationLabels = [
 const hardCodedExamId = 1;
 
 export const Navigation = ({
-  questionList,
-  // = Array.from({ length: 20 }, (_, i) => ({ index: i + 1 }))
   currentQuestion,
   setCurrentQuestion,
+  examSubjectId,
 }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
   const changeQuestion = useExamStore((state) => state.changeQuestion);
@@ -44,8 +43,8 @@ export const Navigation = ({
           <Heading as="h5">Suallar</Heading>
         </HStack>
         <SimpleGrid columns={5} spacing={3}>
-          {examAnswers[hardCodedExamId] &&
-            Object.values(examAnswers[hardCodedExamId]).map((answer, ind) => (
+          {examAnswers[examSubjectId] &&
+            Object.values(examAnswers[examSubjectId]).map((answer, ind) => (
               <Flex
                 key={ind}
                 borderRadius="50%"

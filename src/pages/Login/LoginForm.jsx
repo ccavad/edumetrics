@@ -16,7 +16,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Eye, EyeClosed } from "@phosphor-icons/react";
 import { useNavigate } from "react-router";
-import { useLocalStorage } from "usehooks-ts";
 
 import { useAuthStore } from "../../store/useAuthStore";
 import { accessToken } from "../../services/api/apiService";
@@ -25,6 +24,7 @@ import {
   registerInputStyle,
   registerLabelStyle,
 } from "../../assets/styles/chakraStyles";
+import { useLocalStorageState } from "ahooks";
 
 export const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,10 +39,9 @@ export const LoginForm = () => {
   const token = useAuthStore((state) => state.token);
   const setToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
-  const [localToken, setLocalToken] = useLocalStorage(
-    "notSafeAuthToken",
-    token
-  );
+  const [localToken, setLocalToken] = useLocalStorageState("notSafeAuthToken", {
+    defaultValue: token,
+  });
 
   const onSubmit = async (data) => {
     try {
@@ -75,12 +74,20 @@ export const LoginForm = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <Flex justifyContent="center" width="full" mt={10}>
       <Box
         as="form"
         onSubmit={handleSubmit(onSubmit)}
         width={{ base: "full", md: "60%" }}
+        onKeyDown={handleKeyDown}
       >
         <VStack gap={10}>
           {/* username  */}
