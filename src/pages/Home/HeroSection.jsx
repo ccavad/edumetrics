@@ -21,7 +21,12 @@ export const HeroSection = () => {
 
   return (
     <SimpleGrid columns={{ base: 1, sm: 2 }} spacing={10}>
-      <Flex direction="column" justify="space-evenly" alignItems="center">
+      <Flex
+        direction="column"
+        justify="space-evenly"
+        alignItems="center"
+        gap="6px"
+      >
         <Heading>
           <Highlight query="GƏLƏCƏYİ" styles={{ color: "green" }}>
             ÖVLADINIZIN GƏLƏCƏYİ ÜÇÜN ÇALIŞIRIQ!
@@ -38,7 +43,11 @@ export const HeroSection = () => {
           w="500px"
         />
 
-        <Image src={EDU_URL + companyData?.headerImage} alt="girl book" />
+        {companyData?.headerImage ? (
+          <Image src={EDU_URL + companyData?.headerImage} alt="girl book" />
+        ) : (
+          "loadin"
+        )}
       </Box>
     </SimpleGrid>
   );

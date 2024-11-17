@@ -79,7 +79,7 @@ function Footer() {
               <Link to="/about">HAQQIMIZDA</Link>
             </ListItem>
             <ListItem>
-              <Link to="/courses">FƏNNLƏR</Link>
+              <Link to="/exams">FƏNNLƏR</Link>
             </ListItem>
             <ListItem>
               <Link to="/packages">PAKETLƏR</Link>

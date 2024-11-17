@@ -22,15 +22,13 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Question } from "@phosphor-icons/react";
+import { Controller, useForm } from "react-hook-form";
 import { RenderHTML } from "../../components/common/RenderHTML";
 import {
-  examAnswerTypes,
-  questionTypesList,
+  ExamAnswerTypes,
+  QuestionTypesList,
 } from "../../utils/statics/constants";
 import { useExamStore } from "../../store/useExamStore";
-import { Controller, useForm } from "react-hook-form";
-
-const hardCodedExamId = 1;
 
 export const QuestionRenderer = ({ question, loading, examSubjectId }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
@@ -71,18 +69,20 @@ export const QuestionRenderer = ({ question, loading, examSubjectId }) => {
 
   return (
     <Box>
-      {questionTypesList[question?.questionType] !== "open" && (
-        <HStack align="center" mb={8}>
-          <Heading as="h5" fontSize="30px">
+      {QuestionTypesList[question?.questionType] !== "open" && (
+        <HStack alignItems="center" mb="2rem">
+          <VStack align="center" alignItems="flex-start">
+            {/* <Heading as="h5" fontSize="30px"> */}
             <RenderHTML htmlString={question?.questionText} />
-          </Heading>
+            {/* </Heading> */}
+          </VStack>
           <Tooltip label="quiz">
             <Question size={40} />
           </Tooltip>
         </HStack>
       )}
 
-      <QuestionBody question={question} />
+      <QuestionBody question={question} examSubjectId={examSubjectId} />
       <FormControl display="flex" justifyContent="flex-end">
         <Checkbox
           isChecked={selectedQuizAnswer?.type === "marked"}
@@ -95,12 +95,13 @@ export const QuestionRenderer = ({ question, loading, examSubjectId }) => {
   );
 };
 
-const QuestionBody = ({ question }) => {
+const QuestionBody = ({ question, examSubjectId }) => {
   const examAnswers = useExamStore((state) => state.examAnswers);
   const setExamAnswersByQuestion = useExamStore(
     (state) => state.setExamAnswersByQuestion
   );
-  const selectedQuestionAnswer = examAnswers["1"]?.[question?.questionId];
+  const selectedQuestionAnswer =
+    examAnswers?.[examSubjectId]?.[question?.questionId];
   // console.log("question", question);
   const { register, handleSubmit, setValue, control } = useForm({
     defaultValues: {
@@ -117,7 +118,7 @@ const QuestionBody = ({ question }) => {
     setValue("textAreaAnswer", selectedQuestionAnswer?.value);
   }, [selectedQuestionAnswer, setValue]);
 
-  if (questionTypesList[question?.questionType] === "closed") {
+  if (QuestionTypesList[question?.questionType] === "closed") {
     return (
       <List display="flex" flexDirection="column" gap="1rem">
         {question?.answers.map((answer) => (
@@ -141,14 +142,13 @@ const QuestionBody = ({ question }) => {
               bg={
                 selectedQuestionAnswer?.value == answer?.id ? "lightBlue" : ""
               }
-              cursor="pointer"
               onClick={() =>
-                setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
+                setExamAnswersByQuestion(examSubjectId, question.questionId, {
                   value: answer?.id,
                   type:
-                    selectedQuestionAnswer?.type === examAnswerTypes.marked
-                      ? examAnswerTypes.marked
-                      : examAnswerTypes.answered,
+                    selectedQuestionAnswer?.type === ExamAnswerTypes.marked
+                      ? ExamAnswerTypes.marked
+                      : ExamAnswerTypes.answered,
                 })
               }
             >
@@ -162,17 +162,17 @@ const QuestionBody = ({ question }) => {
   }
 
   if (
-    questionTypesList[question?.questionType] === "open" ||
-    questionTypesList[question?.questionType] === "full"
+    QuestionTypesList[question?.questionType] === "open" ||
+    QuestionTypesList[question?.questionType] === "full"
   ) {
     return (
       <VStack gap={5}>
-        {questionTypesList[question?.questionType] === "open" && (
+        {QuestionTypesList[question?.questionType] === "open" && (
           <>
             <RenderHTML htmlString={question?.questionHeaderText} />
-            <Heading as="h5" fontSize="30px">
-              <RenderHTML htmlString={question?.questionText} />
-            </Heading>
+            {/* <Heading as="h5" fontSize="30px"> */}
+            <RenderHTML htmlString={question?.questionText} />
+            {/* </Heading> */}
           </>
         )}
         <Textarea
@@ -182,12 +182,12 @@ const QuestionBody = ({ question }) => {
         />
         <Button
           onClick={handleSubmit((data) =>
-            setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
+            setExamAnswersByQuestion(examSubjectId, question.questionId, {
               value: data?.textAreaAnswer,
               type:
-                selectedQuestionAnswer?.type === examAnswerTypes.marked
-                  ? examAnswerTypes.marked
-                  : examAnswerTypes.answered,
+                selectedQuestionAnswer?.type === ExamAnswerTypes.marked
+                  ? ExamAnswerTypes.marked
+                  : ExamAnswerTypes.answered,
             })
           )}
         >
@@ -197,7 +197,7 @@ const QuestionBody = ({ question }) => {
     );
   }
 
-  if (questionTypesList[question?.questionType] === "matrissa") {
+  if (QuestionTypesList[question?.questionType] === "matrissa") {
     return (
       <VStack gap={6}>
         {[1, 2, 3].map((num) => (
@@ -226,12 +226,12 @@ const QuestionBody = ({ question }) => {
         ))}
         <Button
           onClick={handleSubmit((data) => {
-            setExamAnswersByQuestion(hardCodedExamId, question.questionId, {
+            setExamAnswersByQuestion(examSubjectId, question.questionId, {
               value: data?.matrissa,
               type:
-                selectedQuestionAnswer?.type === examAnswerTypes.marked
-                  ? examAnswerTypes.marked
-                  : examAnswerTypes.answered,
+                selectedQuestionAnswer?.type === ExamAnswerTypes.marked
+                  ? ExamAnswerTypes.marked
+                  : ExamAnswerTypes.answered,
             });
           })}
         >

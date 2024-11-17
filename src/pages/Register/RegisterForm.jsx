@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from "react";
 import {
   Box,
   Button,
@@ -5,7 +6,6 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  FormHelperText,
   FormLabel,
   Input,
   InputGroup,
@@ -14,8 +14,9 @@ import {
   useToast,
   VStack,
 } from "@chakra-ui/react";
-import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Eye, EyeClosed } from "@phosphor-icons/react";
+import { useDebounce } from "ahooks";
 import {
   addUser,
   checkEmail,
@@ -26,8 +27,6 @@ import {
   registerInputStyle,
   registerLabelStyle,
 } from "../../assets/styles/chakraStyles";
-import { Eye, EyeClosed } from "@phosphor-icons/react";
-import { useDebounce } from "ahooks";
 
 export const RegisterForm = ({ registeredUserType, setRegisteredUserType }) => {
   const [showPassword, setShowPassword] = useState(false);

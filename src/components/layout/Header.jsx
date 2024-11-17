@@ -9,6 +9,7 @@ import {
   MenuItem,
   Button,
   Box,
+  Link,
 } from "@chakra-ui/react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useShallow } from "zustand/react/shallow";
@@ -19,6 +20,7 @@ import { isEmptyObject } from "../../utils/tools/helpers";
 import { EDU_URL } from "../../services/api/constants";
 import { useAuthStore } from "../../store/useAuthStore";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { User } from "@phosphor-icons/react";
 
 export const Header = () => {
   const { companyData, setLanguage } = useCompanyStore(
@@ -40,6 +42,7 @@ export const Header = () => {
     borderColor: "#f0f0f0",
     backgroundColor: "white",
     color: "#1a1a1a",
+    fontSize: { base: "13px", sm: "initial" },
   };
 
   const whiteFilter = "invert(1) brightness(10000%) saturate(100%)";
@@ -49,31 +52,27 @@ export const Header = () => {
       width="full"
       height="88px"
       maxWidth="1200px"
-      padding={{ base: "1rem", sm: "1.5rem", md: "2rem" }}
+      padding={{ base: ".7rem", sm: "1.2rem", md: "2rem" }}
       as="header"
       display="flex"
       alignItems="center"
     >
       <HamburgerDrawer isDarkBgPages={isDarkBgPages} />
-      <NavLink to="/">
+      <Link as={NavLink} to="/" display={{ base: "none", sm: "block" }}>
         <Image
           src={EDU_URL + "/logo"}
-          height={{ base: "40px", sm: "60px" }}
+          height={{ base: "40px", md: "60px" }}
           ml={{ base: "1rem", md: "4rem" }}
           filter={isDarkBgPages ? whiteFilter : "none"}
         />
-      </NavLink>
+      </Link>
 
       <Spacer />
       {token && (
-        <Box mr="3rem">
+        <Box mr="2rem">
           <Menu placement="bottom-end">
-            <MenuButton
-              as={Button}
-              rightIcon={<ChevronDownIcon />}
-              variant="outline"
-            >
-              Profile
+            <MenuButton as={Button}>
+              <User />
             </MenuButton>
             <MenuList>
               <MenuItem onClick={removeToken}>Log out</MenuItem>
@@ -82,7 +81,7 @@ export const Header = () => {
         </Box>
       )}
       <Select
-        w="84px"
+        w="80px"
         onChange={(e) => setLanguage(e.target.value?.toLowerCase())}
         sx={selectStyles}
       >

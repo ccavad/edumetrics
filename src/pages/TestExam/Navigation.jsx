@@ -14,9 +14,9 @@ import React from "react";
 import { useExamStore } from "../../store/useExamStore";
 
 const navigationLabels = [
-  { label: "Cavablandirilmis", color: "navigation.answered" },
-  { label: "Buraxilmis", color: "navigation.missed" },
-  { label: "Isarelenmis", color: "navigation.marked" },
+  { label: "Cavablandırılmış", color: "navigation.answered" },
+  { label: "Buraxılmış", color: "navigation.missed" },
+  { label: "İşarələnmiş", color: "navigation.marked" },
 ];
 
 const hardCodedExamId = 1;

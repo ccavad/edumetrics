@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export const extractBodyContent = (htmlString) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(htmlString, "text/html");
@@ -24,4 +26,8 @@ export const generateUUID = () => {
 export const getQueryParam = (param) => {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
+};
+
+export const formatDate = (date) => {
+  return date && dayjs(date).format("YYYY-MM-DD");
 };
