@@ -1,6 +1,6 @@
 import axios from "axios";
 import { EDU_URL } from "./constants";
-import { languages } from "../../utils/statics/constants";
+import { Languages } from "../../utils/statics/constants";
 import { useAuthStore } from "../../store/useAuthStore";
 
 const token = useAuthStore.getState().token;
@@ -9,7 +9,7 @@ const getAxiosHeaders = () => ({
   Token: token || JSON.parse(localStorage.getItem("notSafeAuthToken")),
 });
 
-export const getCompanyData = async (lang = languages["aze"]) => {
+export const getCompanyData = async (lang = Languages["aze"]) => {
   const url = EDU_URL + `/home/${lang}`;
   return axios(url);
 };
@@ -51,17 +51,9 @@ export const getExamTypes = async () => {
 
 export const getExams = async (body) => {
   const url = EDU_URL + "/getExams";
-  return axios.post(
-    url,
-    {
-      examType: "",
-      beginDate: "2024-08-15",
-      endDate: "2024-09-18",
-    },
-    {
-      headers: getAxiosHeaders(),
-    }
-  );
+  return axios.post(url, body, {
+    headers: getAxiosHeaders(),
+  });
 };
 
 export const getExamDetail = async (id) => {

@@ -10,11 +10,14 @@ const ExamSubjectCard = ({
   imageSrc,
   borderColor,
   onClick,
+  staticImage = false,
 }) => {
   const [svgMarkup, setSvgMarkup] = useState("");
 
   useEffect(() => {
-    initSrc();
+    if (!staticImage) {
+      initSrc();
+    }
   }, []);
 
   const initSrc = async () => {
@@ -37,8 +40,7 @@ const ExamSubjectCard = ({
   return (
     <Box
       bg="transparent"
-      as="section"
-      w={{ base: "full", sm: "380px" }}
+      w={{ base: "full", sm: "320px" }}
       height="200px"
       p="50px 30px"
       borderRadius="10px"
@@ -52,8 +54,9 @@ const ExamSubjectCard = ({
       onClick={onClick}
     >
       <Flex justifyContent="center" gap={4} alignItems="center">
-        {/* <Image src={EDU_URL + imageSrc} alt={title} /> */}
-        <RenderHTML htmlString={svgMarkup} />
+        {staticImage && <Image src={imageSrc} alt={title} />}
+        {!staticImage && <RenderHTML htmlString={svgMarkup} />}
+
         <Box>
           <Heading as="h5" size="md">
             {title}

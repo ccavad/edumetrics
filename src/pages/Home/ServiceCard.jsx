@@ -6,7 +6,6 @@ export default function ServiceCard({ imageSrc, heading, text }) {
     <>
       <Flex
         bg="transparent"
-        as="section"
         w="full"
         p={4}
         borderRadius="10px"

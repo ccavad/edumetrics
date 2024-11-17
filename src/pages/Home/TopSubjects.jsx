@@ -51,6 +51,7 @@ export default function TopSubjects() {
               description={subject.description}
               imageSrc={subject.imageSrc}
               borderColor={subject.borderColor}
+              staticImage={true}
             />
           ))}
         </Flex>

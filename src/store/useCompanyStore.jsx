@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { languages } from "../utils/statics/constants";
+import { Languages } from "../utils/statics/constants";
 import { getCompanyData } from "../services/api/apiService";
 
 export const useCompanyStore = create((set, get) => ({
   companyData: {},
   setCompanyData: (data) => set({ companyData: data }),
-  language: languages["aze"],
+  language: Languages["aze"],
   setLanguage: (lang) =>
     set((state) => {
-      if (Object.values(languages).includes(lang)) {
+      if (Object.values(Languages).includes(lang)) {
         return { language: lang };
       }
     }),

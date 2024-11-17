@@ -7,6 +7,7 @@ import { RootLayout } from "./RootLayout";
 import { SuspenseRoute } from "./SuspenseRoute";
 import { PublicRoute } from "./PublicRoute";
 import { ProtectedRoutes } from "./ProtectedRoutes";
+
 const LazyHome = lazy(() => import("./../pages/Home/Home"));
 const LazyRegister = lazy(() => import("./../pages/Register/Register"));
 const LazyLogin = lazy(() => import("./../pages/Login/Login"));
@@ -18,6 +19,7 @@ const LazyPaymentPage = lazy(() => import("../pages/Payment/PaymentPage"));
 const LazyStatistics = lazy(() =>
   import("../pages/Statistics/StatisticsLayout")
 );
+
 import { LoadingSpinner } from "../components/layout/LoadingSpinner";
 
 // styling
@@ -31,7 +33,6 @@ import { useFavicon, useTitle } from "ahooks";
 // misc
 import { EDU_URL } from "../services/api/constants";
 import { textTemplates } from "./../utils/statics/templates";
-import PaymentPage from "../pages/Payment/PaymentPage";
 
 function App() {
   const initCompanyData = useCompanyStore((state) => state.initCompanyData);

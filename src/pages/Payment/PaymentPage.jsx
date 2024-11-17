@@ -76,7 +76,7 @@ const PaymentPage = () => {
         <TabPanels>
           <TabPanel>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Flex gap={8}>
+              <Flex gap={8} direction={{ base: "column", lg: "row" }}>
                 {/* Left Side - User Cards */}
                 <VStack flex="1" align="stretch" justify="center">
                   <Cards

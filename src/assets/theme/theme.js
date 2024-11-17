@@ -13,6 +13,9 @@ const theme = extendTheme({
       ".chakra-input__group": {
         marginLeft: "-1em",
       },
+      ".chakra-menu__menu-list": {
+        minWidth: "auto",
+      },
     },
   },
   fonts: {
